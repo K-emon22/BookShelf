@@ -59,6 +59,7 @@ const NavBAr = () => {
                 "https://i.ibb.co/Q7NsLYWn/572504ff-152a-44e5-9fb4-e4d0966bab63.jpg"
               }
               alt=""
+              
             />
           </div>
           <h1 className="my-auto font-bold text-2xl hidden lg:text-4xl [@media(min-width:851px)]:block">
