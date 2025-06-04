@@ -1,5 +1,5 @@
 import React from "react";
-import {NavLink} from "react-router";
+import {Link, NavLink} from "react-router";
 import {HiMenuAlt3} from "react-icons/hi";
 const NavBAr = () => {
   // const pages = (
@@ -56,7 +56,7 @@ const NavBAr = () => {
         {({isActive}) => (
           <>
             <span
-              className={`absolute inset-0 bg-green-400 z-0 transition-transform duration-500 ease-in-out ${
+              className={`absolute inset-0 bg-blue-500 z-0 transition-transform duration-500 ease-in-out ${
                 isActive ? "scale-x-100" : "scale-x-0"
               } origin-left rounded-lg`}
             />
@@ -72,7 +72,7 @@ const NavBAr = () => {
         {({isActive}) => (
           <>
             <span
-              className={`absolute inset-0 bg-green-400 z-0 transition-transform duration-500 ease-in-out ${
+              className={`absolute inset-0 bg-blue-500 z-0 transition-transform duration-500 ease-in-out ${
                 isActive ? "scale-x-100" : "scale-x-0"
               } origin-left rounded-lg`}
             />
@@ -88,7 +88,7 @@ const NavBAr = () => {
         {({isActive}) => (
           <>
             <span
-              className={`absolute inset-0 bg-green-400 z-0 transition-transform duration-500 ease-in-out ${
+              className={`absolute inset-0 bg-blue-500 z-0 transition-transform duration-500 ease-in-out ${
                 isActive ? "scale-x-100" : "scale-x-0"
               } origin-left rounded-lg`}
             />
@@ -104,7 +104,7 @@ const NavBAr = () => {
         {({isActive}) => (
           <>
             <span
-              className={`absolute inset-0 bg-green-400 z-0 transition-transform duration-500 ease-in-out ${
+              className={`absolute inset-0 bg-blue-500 z-0 transition-transform duration-500 ease-in-out ${
                 isActive ? "scale-x-100" : "scale-x-0"
               } origin-left rounded-lg`}
             />
@@ -120,7 +120,7 @@ const NavBAr = () => {
         {({isActive}) => (
           <>
             <span
-              className={`absolute inset-0 bg-green-400 z-0 transition-transform duration-500 ease-in-out ${
+              className={`absolute inset-0 bg-blue-500 z-0 transition-transform duration-500 ease-in-out ${
                 isActive ? "scale-x-100" : "scale-x-0"
               } origin-left rounded-lg`}
             />
@@ -130,9 +130,22 @@ const NavBAr = () => {
       </NavLink>
     </>
   );
+  const button = (
+    <>
+      <Link to={"/login"}>
+        {" "}
+        <button className="btnn">Login </button>
+      </Link>
+      <Link to={"/register"}>
+        {" "}
+        <button className="btnn "> Register</button>
+      </Link>
+    </>
+  );
+
   return (
-    <div className="sticky top-0 z-50 bg-transparent py-2">
-      <nav className="flex flex-row justify-between mb-20 px-[2%]">
+    <div className="sticky top-0 z-50   backdrop-blur-sm bg-blue-600/30">
+      <nav className="flex flex-row justify-between mb-10 py-2 px-[2%]">
         <div className="flex justify-between gap-2 ">
           <div className="flex justify-center items-center">
             <img
@@ -146,7 +159,6 @@ const NavBAr = () => {
           <h1 className="my-auto font-bold text-2xl hidden lg:text-4xl [@media(min-width:851px)]:block">
             Bookshelf
           </h1>
-          
         </div>
         <div className="my-auto hidden [@media(min-width:850Px)]:block ">
           <div className="flex gap-4  xl:gap-8 font-semibold">{pages}</div>
@@ -156,8 +168,7 @@ const NavBAr = () => {
         </div>
         <div className=" flex flex-row gap-5">
           <div className=" space-x-3 hidden [@media(min-width:850Px)]:block">
-            <button className="btn btn-primary">Login </button>
-            <button className="btn btn-primary"> Register</button>
+            {button}
           </div>
 
           <div className=" [@media(min-width:850px)]:hidden  my-auto ">
@@ -173,9 +184,7 @@ const NavBAr = () => {
                   {pages}
                   <hr className="mt-2" />
                   <div className="flex flex-row justify-center items-center mt-5  gap-2">
-                    <button className="btn btn-primary">Login </button>
-                    <button className="btn btn-primary"> Register</button>
-                    
+                    {button}
                   </div>
                 </div>
               </ul>
