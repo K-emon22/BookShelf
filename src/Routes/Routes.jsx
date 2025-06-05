@@ -10,6 +10,7 @@ import Bookshelf from "../Components/Pages/Bookshelf/Bookshelf";
 import Login from "../Components/Authentication/Login";
 import Register from "../Components/Authentication/Register";
 import Error from "../Components/Error/Error";
+import DetailsPage from "../Components/DetailsPage/DetailsPage";
 
 export const Routes = createBrowserRouter([
   {
@@ -41,9 +42,14 @@ export const Routes = createBrowserRouter([
         path: "/register",
         element: <Register></Register>,
       },
+      {
+        path: "/bookDetails/:id",
+        element: <DetailsPage></DetailsPage>,
+      },
     ],
-  },{
-    path:'/*',
-    element:<Error></Error>
-  }
+  },
+  {
+    path: "/*",
+    element: <Error></Error>,
+  },
 ]);

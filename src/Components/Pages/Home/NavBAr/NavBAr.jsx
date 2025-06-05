@@ -133,7 +133,11 @@ const NavBAr = () => {
               {user ? (
                 <div className="dropdown dropdown-end">
                   <div tabIndex={0} role="button">
-                    <img className="h-10 my-auto mt-1" src={user?.photoURL} alt="" />
+                    <img
+                      className="h-10 my-auto mt-1"
+                      src={user?.photoURL}
+                      alt=""
+                    />
                   </div>
                   <ul
                     tabIndex={0}

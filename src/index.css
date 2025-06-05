@@ -44,3 +44,26 @@
   background-color: #2563EB;
   color: white;
 }
+
+
+
+
+
+
+
+
+
+.btnnnnn {
+  color: white;
+  background-color: #c12929;
+  padding: 8px 15px;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btnnnnn:hover {
+  background-color: #ff0000;
+  color: white;
+}

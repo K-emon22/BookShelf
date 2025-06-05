@@ -5,14 +5,14 @@ import SortedBook from "../SortedBook/SortedBook";
 import Loder from "../../../Loder/Loder";
 import FeatureCAt from "../FeatureCAt/FeatureCAt";
 import QnaSection from "../QnASection/QnaSection";
-
+import {motion} from "framer-motion";
 const HomePage = () => {
   const [loding1, setLoading1] = useState(true);
 
   useEffect(() => {
     setTimeout(() => {
       setLoading1(false);
-    }, 1000);
+    }, 500);
   }, []);
 
   if (loding1) {
@@ -20,15 +20,19 @@ const HomePage = () => {
   }
 
   return (
-    <div>
+    <motion.div
+      initial={{opacity: 0, y: 40}}
+      animate={{opacity: 1, y: 0}}
+      exit={{opacity: 0, y: -40}}
+      transition={{duration: 1}}
+    >
       <Slider></Slider>
       <SortedBook></SortedBook>
       <FeatureCAt></FeatureCAt>
+      <QnaSection></QnaSection>
 
 
-<QnaSection></QnaSection>
-
-    </div>
+    </motion.div>
   );
 };
 
