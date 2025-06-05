@@ -2,9 +2,42 @@ import {Link} from "react-router";
 import {Typewriter} from "react-simple-typewriter";
 import {Fade} from "react-awesome-reveal";
 import Loder from "../Loder/Loder";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
+import {FaGoogle} from "react-icons/fa";
+import {AuthContext} from "../ContextFiles/AuthContext";
+import {updateProfile} from "firebase/auth";
 const Register = () => {
   const [loder, setLoder] = useState(true);
+  const {googleLogin, createUser} = useContext(AuthContext);
+
+  const register = (e) => {
+    e.preventDefault();
+    const name = e.target.name.value;
+    const email = e.target.email.value;
+    const photo = e.target.photo.value;
+    const password = e.target.password.value;
+    console.log(name, email, photo, password);
+
+    createUser(email, password)
+      .then((result) => {
+        const user = result.user;
+        updateProfile(user, {
+          displayName: name,
+          photoURL: photo,
+        })
+          .then(() => {
+            e.target.reset();
+          })
+          .catch((err) => {
+            console.error("Error updating profile:", err);
+          });
+      })
+      .catch((err) => console.error(err));
+  };
+
+  const googleLogins = () => {
+    googleLogin().catch((err) => console.error(err));
+  };
 
   useEffect(() => {
     setTimeout(() => {
@@ -15,16 +48,6 @@ const Register = () => {
   if (loder) {
     return <Loder></Loder>;
   }
-
-  const register = (e) => {
-    e.preventDefault();
-    const name = e.target.name.value;
-    const email = e.target.email.value;
-    const photo = e.target.photo.value;
-    const password = e.target.password.value;
-    console.log(name, email, photo, password);
-  };
-
   return (
     <div
       className="bg-cover bg-center h-screen px-[2%]"
@@ -84,11 +107,15 @@ const Register = () => {
           />
 
           <button
+            onClick={googleLogins}
             type="button"
-            className=" cursor-pointer mt-8 font-bold border-2 w-[206.5px] md:w-full bg-[#F5F5F5]   h-10 my-auto rounded-full mb-2"
+            className="  flex flex-row  items-center gap-2 hover:bg-blue-500 hover:text-white cursor-pointer mt-8 font-bold border-2 w-[206.5px] md:w-full bg-[#F5F5F5]   h-10 my-auto rounded-full mb-2"
           >
             {" "}
-            Google{" "}
+            <span className="mr-16 ml-5">
+              <FaGoogle size={25} />{" "}
+            </span>{" "}
+            <span>Login With Google </span>
           </button>
           <button
             type="submit"

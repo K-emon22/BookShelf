@@ -1,52 +1,9 @@
-import React from "react";
+import React, {useContext} from "react";
 import {Link, NavLink} from "react-router";
 import {HiMenuAlt3} from "react-icons/hi";
+import {AuthContext} from "../../../ContextFiles/AuthContext";
 const NavBAr = () => {
-  // const pages = (
-  //   <>
-  //     <NavLink
-  //       className={({isActive}) =>
-  //         ` px-2 py-1 ${isActive ? " bg-green-400 rounded-lg text-center" : ""}`
-  //       }
-  //       to={"/"}
-  //     >
-  //       Home
-  //     </NavLink>
-  //     <NavLink
-  //       className={({isActive}) =>
-  //         ` px-2 py-1 ${isActive ? " bg-green-400 rounded-lg text-center" : ""}`
-  //       }
-  //       to={"/bookshelf"}
-  //     >
-  //       Bookshelf
-  //     </NavLink>
-  //     <NavLink
-  //       className={({isActive}) =>
-  //         ` px-2 py-1 ${isActive ? " bg-green-400 rounded-lg text-center" : ""}`
-  //       }
-  //       to={"/addBook"}
-  //     >
-  //       Add Book
-  //     </NavLink>
-  //     <NavLink
-  //       className={({isActive}) =>
-  //         ` px-2 py-1 ${isActive ? " bg-green-400 rounded-lg text-center" : ""}`
-  //       }
-  //       to={"/myBooks"}
-  //     >
-  //       {" "}
-  //       My Books
-  //     </NavLink>
-  //     <NavLink
-  //       className={({isActive}) =>
-  //         ` px-2 py-1 ${isActive ? " bg-green-400 rounded-lg text-center" : ""}`
-  //       }
-  //       to={"/profile"}
-  //     >
-  //       Profile{" "}
-  //     </NavLink>
-  //   </>
-  // );
+  const {user, loading} = useContext(AuthContext);
   const pages = (
     <>
       <NavLink
@@ -143,9 +100,11 @@ const NavBAr = () => {
     </>
   );
 
+  console.log(user);
+
   return (
     <div className="sticky top-0 z-50   backdrop-blur-sm bg-blue-600/30">
-      <nav className="flex flex-row justify-between mb-10 py-2 px-[2%]">
+      <nav className="flex flex-row justify-between mb-10 pt-1 px-[2%] lg:px-[5%]">
         <div className="flex justify-between gap-2 ">
           <div className="flex justify-center items-center">
             <img
@@ -166,26 +125,52 @@ const NavBAr = () => {
         <div className="[@media(min-width:850px)]:hidden my-auto">
           <h1 className="my-auto font-bold text-2xl ">Bookshelf</h1>{" "}
         </div>
-        <div className=" flex flex-row gap-5">
-          <div className=" space-x-3 hidden [@media(min-width:850Px)]:block">
-            {button}
-          </div>
+        <div className=" flex flex-row gap-2">
+          {loading ? (
+            <span className="loading h-[50px] w-[40px] loading-ring "></span>
+          ) : (
+            <div>
+              {user ? (
+                <div className="dropdown dropdown-end">
+                  <div tabIndex={0} role="button">
+                    <img className="h-10 my-auto mt-1" src={user?.photoURL} alt="" />
+                  </div>
+                  <ul
+                    tabIndex={0}
+                    className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm mt-3 border-2"
+                  >
+                    <li>{user?.displayName}</li>
+                  </ul>
+                </div>
+              ) : (
+                <div className=" space-x-3 hidden [@media(min-width:850Px)]:block">
+                  {button}
+                </div>
+              )}
+            </div>
+          )}
 
           <div className=" [@media(min-width:850px)]:hidden  my-auto ">
             <div className="dropdown dropdown-end ">
               <div tabIndex={0} role="button" className=" m-1">
-                <HiMenuAlt3 size={25} className="mt-2.5" />
+                <HiMenuAlt3 size={35} className="mt-1.5" />
               </div>
               <ul
                 tabIndex={0}
-                className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm border-2"
+                className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm border-2 mt-3"
               >
-                <div className="flex flex-col font-semibold ">
+                <div className="flex flex-col font-semibold space-y-1">
                   {pages}
-                  <hr className="mt-2" />
-                  <div className="flex flex-row justify-center items-center mt-5  gap-2">
-                    {button}
-                  </div>
+                  {user ? (
+                    ""
+                  ) : (
+                    <div>
+                      <hr className="mt-2" />
+                      <div className="flex flex-row justify-center items-center mt-5  gap-2">
+                        {button}
+                      </div>
+                    </div>
+                  )}
                 </div>
               </ul>
             </div>

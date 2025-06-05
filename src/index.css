@@ -12,3 +12,35 @@
   background-color: #2563EB;
   color: white;
 }
+
+
+
+.btnnn {
+  color: white;
+  background-color: #3B82F6;
+  padding: 10px 15px;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btnnn:hover {
+  background-color: #2563EB;
+  color: white;
+}
+
+.btnnnn {
+  color: white;
+  background-color: #3B82F6;
+  padding: 8px 15px;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btnnnn:hover {
+  background-color: #2563EB;
+  color: white;
+}

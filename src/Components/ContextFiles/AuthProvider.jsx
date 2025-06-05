@@ -1,4 +1,4 @@
-import {GoogleAuthProvider} from "firebase/auth/web-extension";
+import {GoogleAuthProvider} from "firebase/auth";
 import {AuthContext} from "./AuthContext";
 import {
   createUserWithEmailAndPassword,
