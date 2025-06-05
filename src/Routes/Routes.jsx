@@ -9,6 +9,7 @@ import Profile from "../Components/Pages/Profile/Profile";
 import Bookshelf from "../Components/Pages/Bookshelf/Bookshelf";
 import Login from "../Components/Authentication/Login";
 import Register from "../Components/Authentication/Register";
+import Error from "../Components/Error/Error";
 
 export const Routes = createBrowserRouter([
   {
@@ -41,5 +42,8 @@ export const Routes = createBrowserRouter([
         element: <Register></Register>,
       },
     ],
-  },
+  },{
+    path:'/*',
+    element:<Error></Error>
+  }
 ]);

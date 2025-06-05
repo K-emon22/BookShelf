@@ -3,6 +3,8 @@ import NavBAr from "../NavBAr/NavBAr";
 import {Slider} from "../Slider/Slider";
 import SortedBook from "../SortedBook/SortedBook";
 import Loder from "../../../Loder/Loder";
+import FeatureCAt from "../FeatureCAt/FeatureCAt";
+import QnaSection from "../QnASection/QnaSection";
 
 const HomePage = () => {
   const [loding1, setLoading1] = useState(true);
@@ -21,6 +23,11 @@ const HomePage = () => {
     <div>
       <Slider></Slider>
       <SortedBook></SortedBook>
+      <FeatureCAt></FeatureCAt>
+
+
+<QnaSection></QnaSection>
+
     </div>
   );
 };
