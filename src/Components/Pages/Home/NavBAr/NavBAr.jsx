@@ -7,6 +7,8 @@ import {Auth} from "../../../Firebase/FirebaseAuth";
 const NavBAr = () => {
   const {user, loading} = useContext(AuthContext);
 
+  console.log(user?.photoURL);
+
   const logOut = () => {
     signOut(Auth);
   };
@@ -111,11 +113,11 @@ const NavBAr = () => {
 
   return (
     <div className="sticky top-0 z-50   backdrop-blur-sm bg-blue-600/30">
-      <nav className="flex flex-row justify-between mb-10 pt-1 px-[2%] lg:px-[5%]">
-        <div className="flex justify-between gap-2 ">
+      <nav className="flex flex-row justify-between mb-10 pt-1 px-[2%] lg:px-[5%] border-b">
+        <div className="flex justify-between gap-2 mb-1">
           <div className="flex justify-center items-center">
             <img
-              className="h-10 w-15 rounded-lg"
+              className="h-10 w-15 rounded-lg "
               src={
                 "https://i.ibb.co/Q7NsLYWn/572504ff-152a-44e5-9fb4-e4d0966bab63.jpg"
               }
@@ -127,7 +129,7 @@ const NavBAr = () => {
           </h1>
         </div>
         <div className="my-auto hidden [@media(min-width:850Px)]:block ">
-          <div className="flex gap-4  xl:gap-8 font-semibold">{pages}</div>
+          <div className="flex gap-4  xl:gap-8 font-semibold mb-1.5">{pages}</div>
         </div>
         <div className="[@media(min-width:850px)]:hidden my-auto">
           <h1 className="my-auto font-bold text-2xl ">Bookshelf</h1>{" "}
@@ -139,11 +141,12 @@ const NavBAr = () => {
             <div>
               {user ? (
                 <div className="dropdown dropdown-end">
-                  <div tabIndex={0} role="button">
+                  <div tabIndex={0} role="button" >
                     <img
-                      className="h-10 my-auto mt-1"
+                      className="h-10 my-auto mt-1 rounded-full"
                       src={user?.photoURL}
                       alt=""
+                      referrerPolicy="no-referrer"
                     />
                   </div>
                   <ul
@@ -158,7 +161,7 @@ const NavBAr = () => {
                   </ul>
                 </div>
               ) : (
-                <div className=" space-x-3 hidden [@media(min-width:850Px)]:block">
+                <div className=" space-x-3 hidden [@media(min-width:850Px)]:block pb-1">
                   {button}
                 </div>
               )}

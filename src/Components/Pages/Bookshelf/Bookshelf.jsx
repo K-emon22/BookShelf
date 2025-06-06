@@ -12,12 +12,15 @@ const Bookshelf = () => {
   const [loding2, setLoding2] = useState(true);
 
   useEffect(() => {
-    axios("https://vercel-backend-for-bookshelf.vercel.app/allBooks").then(
-      (data) => {
+    axios
+      .get("https://vercel-backend-for-bookshelf.vercel.app/allBooks")
+      .then((data) => {
         setSorted(data.data);
         setLoding2(false);
-      }
-    );
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }, []);
 
   console.log(sorted);
@@ -105,6 +108,9 @@ const Bookshelf = () => {
           ))}
         </div>
       )}
+
+
+      
     </motion.div>
   );
 };

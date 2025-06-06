@@ -7,6 +7,7 @@ import {motion} from "framer-motion";
 import {GrLike} from "react-icons/gr";
 import {toast} from "react-toastify";
 import {AuthContext} from "../ContextFiles/AuthContext";
+import ReviewSection from "../Review/ReviewSection/ReviewSection";
 const DetailsPage = () => {
   const [book, setBook] = useState(null);
   const {user} = useContext(AuthContext);
@@ -22,7 +23,12 @@ const DetailsPage = () => {
 
   const handleUpvote = () => {
     if (!user) {
-      toast.warning("Please log in to upvote.");
+      toast.warning("Please log in to upvote.", {
+        autoClose: 1000,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
       return;
     }
 
@@ -41,11 +47,11 @@ const DetailsPage = () => {
   }
 
   return (
-    <div>
+    <div className="mx-[2%] lg:mx-[5%]">
       <Fade direction="down" cascade duration={800} triggerOnce={false}>
-        <h1 className="text-3xl sm:text-5xl font-bold text-center ">
-          Explore the Story Behind: <br />{" "}
-          <span className="text-blue-400">{book.book_title}</span>
+        <h1 className="text-3xl sm:text-5xl font-bold  ">
+          Explore the Story Behind:{" "}
+          <span className="text-blue-400 ">{book.book_title}</span>
         </h1>
       </Fade>
 
@@ -107,6 +113,9 @@ const DetailsPage = () => {
             )}
           </div>
         </div>
+      </div>
+      <div>
+        <ReviewSection book={book}></ReviewSection>
       </div>
     </div>
   );
