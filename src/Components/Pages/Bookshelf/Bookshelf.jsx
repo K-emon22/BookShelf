@@ -86,7 +86,7 @@ const Bookshelf = () => {
                   </Fade>
 
                   <Fade delay={500}>
-                    <h1 className="font-bold flex flex-row gap-1 my-auto mt-7">
+                    <h1 className="font-bold flex flex-row gap-1 my-auto mt-7 px-3 border border-blue-400 rounded-full">
                       <span className="my-auto">
                         <GrLike />
                       </span>{" "}

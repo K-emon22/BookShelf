@@ -5,6 +5,7 @@ import Loder from "../Loder/Loder";
 import {Fade} from "react-awesome-reveal";
 import {motion} from "framer-motion";
 import {GrLike} from "react-icons/gr";
+import {toast} from "react-toastify";
 import {AuthContext} from "../ContextFiles/AuthContext";
 const DetailsPage = () => {
   const [book, setBook] = useState(null);
@@ -20,11 +21,18 @@ const DetailsPage = () => {
   }, [id]);
 
   const handleUpvote = () => {
+    if (!user) {
+      toast.warning("Please log in to upvote.");
+      return;
+    }
+
     axios
       .patch(`https://vercel-backend-for-bookshelf.vercel.app/upvote/${id}`)
+
       .then((res) => {
         setBook(res.data);
       })
+
       .catch((err) => console.error("Upvote error:", err));
   };
 

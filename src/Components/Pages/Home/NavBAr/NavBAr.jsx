@@ -2,8 +2,15 @@ import React, {useContext} from "react";
 import {Link, NavLink} from "react-router";
 import {HiMenuAlt3} from "react-icons/hi";
 import {AuthContext} from "../../../ContextFiles/AuthContext";
+import {signOut} from "firebase/auth";
+import {Auth} from "../../../Firebase/FirebaseAuth";
 const NavBAr = () => {
   const {user, loading} = useContext(AuthContext);
+
+  const logOut = () => {
+    signOut(Auth);
+  };
+
   const pages = (
     <>
       <NavLink
@@ -144,6 +151,10 @@ const NavBAr = () => {
                     className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm mt-3 border-2"
                   >
                     <li>{user?.displayName}</li>
+                    <button onClick={logOut} className="btnnnnn">
+                      {" "}
+                      Logout{" "}
+                    </button>
                   </ul>
                 </div>
               ) : (

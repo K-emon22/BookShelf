@@ -52,7 +52,7 @@ const SortedBook = () => {
                     <h1 className="font-bold  text-blue-400 bg-blue-100 px-2 rounded-full border border-blue-400 my-auto">
                       {sort.book_category}
                     </h1>
-                    <h1 className="font-bold flex flex-row gap-1">
+                    <h1 className="font-bold flex flex-row gap-1 px-3 border rounded-full border-blue-400">
                       <span className="my-auto">
                         <GrLike />
                       </span>
