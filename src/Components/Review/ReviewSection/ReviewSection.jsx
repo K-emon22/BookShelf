@@ -4,6 +4,7 @@ import {Fade} from "react-awesome-reveal";
 import AddReview from "../AddReview/AddReview";
 import {AuthContext} from "../../ContextFiles/AuthContext";
 import Swal from "sweetalert2";
+import EditReview from "../EditReview/EditReview";
 const ReviewSection = ({book}) => {
   const {user} = useContext(AuthContext);
 
@@ -97,9 +98,12 @@ const ReviewSection = ({book}) => {
 
                     {item.user_name === user?.displayName && (
                       <div className="mt-4 flex flex-row gap-10">
-                        <button className="bg-cyan-600 font-bold text-white btn rounded-lg">
-                          Edit
-                        </button>
+                        <div className="flex justify-center hover:scale-110 transition-transform">
+                          <EditReview
+                            book={book}
+                            refreshReviews={fetchReviews}
+                          />
+                        </div>
 
                         <button
                           onClick={() => {
