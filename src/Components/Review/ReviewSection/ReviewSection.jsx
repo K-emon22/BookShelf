@@ -49,7 +49,7 @@ const ReviewSection = ({book}) => {
     <div className="mb-10 mt-10">
       <Fade direction="up" cascade duration={800} triggerOnce={false}>
         <div>
-          <h1 className="text-3xl sm:text-5xl font-bold mb-10">
+          <h1 id="review" className="text-3xl sm:text-5xl font-bold mb-10">
             Reader's Review and Thoughts.
           </h1>
         </div>
@@ -118,6 +118,14 @@ const ReviewSection = ({book}) => {
                             }).then((result) => {
                               if (result.isConfirmed) {
                                 handleDelete(item._id);
+
+                                Swal.fire({
+                                  title: "Deleted!",
+                                  text: "Your review has been deleted.",
+                                  icon: "success",
+
+                                  showConfirmButton: true,
+                                });
                               }
                             });
                           }}
