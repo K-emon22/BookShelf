@@ -35,7 +35,7 @@ const Login = () => {
 
   return (
     <div
-      className="bg-cover bg-center h-screen px-[2%]"
+      className="bg-cover bg-center h-screen px-[2%] lg:[px5%]"
       style={{
         backgroundImage: `url('https://i.ibb.co/7d9DHCrr/Sign-up-rafiki.png')`,
       }}
@@ -82,10 +82,10 @@ const Login = () => {
           <button
             onClick={loginWithGoogle}
             type="button"
-            className=" flex flex-row  items-center gap-2 hover:bg-blue-500 hover:text-white cursor-pointer mt-8 font-bold border-2 w-[206.5px] md:w-full bg-[#F5F5F5]   h-10 my-auto rounded-full mb-2"
+            className=" flex flex-row justify-center items-center gap-2 hover:bg-blue-500 hover:text-white cursor-pointer mt-8 font-bold border-2 w-[206.5px] md:w-full bg-[#F5F5F5]   h-10 my-auto rounded-full mb-2"
           >
             {" "}
-            <span className="mr-16 ml-5">
+            <span className="">
               <FaGoogle size={25} />{" "}
             </span>{" "}
             <span>Login With Google </span>
