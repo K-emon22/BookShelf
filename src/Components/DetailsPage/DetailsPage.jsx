@@ -1,16 +1,17 @@
 import axios from "axios";
-import React, {useContext, useEffect, useState} from "react";
+import React, { useEffect, useState} from "react";
 import {useParams} from "react-router";
 import Loder from "../Loder/Loder";
 import {Fade} from "react-awesome-reveal";
 import {motion} from "framer-motion";
+import Swal from "sweetalert2";
 import {GrLike} from "react-icons/gr";
-import {toast} from "react-toastify";
+
 import {AuthContext} from "../ContextFiles/AuthContext";
 import ReviewSection from "../Review/ReviewSection/ReviewSection";
 const DetailsPage = () => {
   const [book, setBook] = useState(null);
-  const {user} = useContext(AuthContext);
+
   const {id} = useParams();
 
   useEffect(() => {
@@ -22,16 +23,6 @@ const DetailsPage = () => {
   }, [id]);
 
   const handleUpvote = () => {
-    if (!user) {
-      toast.warning("Please log in to upvote.", {
-        autoClose: 1000,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-      });
-      return;
-    }
-
     axios
       .patch(`https://vercel-backend-for-bookshelf.vercel.app/upvote/${id}`)
 
@@ -40,6 +31,13 @@ const DetailsPage = () => {
       })
 
       .catch((err) => console.error("Upvote error:", err));
+  };
+
+  const handleDelete = () => {
+    console.log("delete");
+    axios.delete(
+      `https://vercel-backend-for-bookshelf.vercel.app/allBooks/${id}`
+    );
   };
 
   if (!book) {
@@ -103,14 +101,7 @@ const DetailsPage = () => {
               </p>
             </div>
 
-            {user?.email == book.user?.email ? (
-              <div className="flex flex-row justify-between">
-                <button className="btnnn"> Update</button>
-                <button className="btnnnnn">Delete</button>
-              </div>
-            ) : (
-              ""
-            )}
+            
           </div>
         </div>
       </div>
