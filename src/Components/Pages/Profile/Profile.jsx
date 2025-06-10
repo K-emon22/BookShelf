@@ -15,34 +15,33 @@ import {
 } from "recharts";
 
 const Profile = () => {
-  const [loding, setLoding] = useState(true);
   const {user, loading} = useContext(AuthContext);
-
+  const [loding, setLoding] = useState(true);
   const [addedBook, setAddedBook] = useState([]);
 
   useEffect(() => {
-    
-    axios("https://vercel-backend-for-bookshelf.vercel.app/allBooks")
+    axios
+      .get("https://vercel-backend-for-bookshelf.vercel.app/allBooks")
       .then((res) => {
-        const book = res.data.filter((boo) => boo.email === user?.email);
-        setAddedBook(book);
-        console.log(res.data);
-      })
-      .then(() => {
+        setAddedBook(res.data);
         setLoding(false);
       });
   }, []);
 
+  const userBook = addedBook.filter((book) => book.user.email === user?.email);
+  console.log(userBook);
 
-
-  console.log(addedBook);
-  
-  const Fantasy = addedBook.filter((boo) => boo.book_category === "Fantasy");
+  const Fantasy = addedBook.filter(
+    (boo) => boo.book_category == "Fantasy" && boo.user.email === user?.email
+  );
 
   const NonFiction = addedBook.filter(
-    (boo) => boo.book_category === "Non-Fiction"
+    (boo) =>
+      boo.book_category == "Non-Fiction" && boo.user.email === user?.email
   );
-  const Fiction = addedBook.filter((boo) => boo.book_category === "Fiction");
+  const Fiction = addedBook.filter(
+    (boo) => boo.book_category == "Fiction" && boo.user.email === user?.email
+  );
 
   console.log(Fantasy.length, NonFiction.length, Fiction.length);
 
@@ -109,7 +108,7 @@ const Profile = () => {
               Total Added Books
             </h1>
             <span className="bg-blue-100 text-blue-600 font-bold text-xl py-1 px-3.5 rounded-full">
-              {addedBook?.length}
+              {userBook.length}
             </span>
           </div>
 
@@ -120,19 +119,19 @@ const Profile = () => {
               <li className="flex justify-between items-center text-base">
                 <span className="text-gray-600">Total Fantasy Book</span>
                 <span className="font-semibold text-gray-900 bg-gray-100 py-1 px-3 rounded-md">
-                  {Fantasy?.length}
+                  {Fantasy.length}
                 </span>
               </li>
               <li className="flex justify-between items-center text-base">
                 <span className="text-gray-600">Total Non-Fiction Book</span>
                 <span className="font-semibold text-gray-900 bg-gray-100 py-1 px-3 rounded-md">
-                  {NonFiction?.length}
+                  {NonFiction.length}
                 </span>
               </li>
               <li className="flex justify-between items-center text-base">
                 <span className="text-gray-600">Total Fiction Book</span>
                 <span className="font-semibold text-gray-900 bg-gray-100 py-1 px-3 rounded-md">
-                  {Fiction?.length}
+                  {Fiction.length}
                 </span>
               </li>
             </ul>
