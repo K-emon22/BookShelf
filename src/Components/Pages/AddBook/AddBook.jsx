@@ -57,6 +57,8 @@ const AddBook = () => {
       .post("https://vercel-backend-for-bookshelf.vercel.app/allBooks", book)
       .then(() => {
         form.reset();
+        setCategory('')
+        setStatus('')
         Swal.fire({
           title: "Success!",
           text: "Book added successfully!",

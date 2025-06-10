@@ -1,26 +1,34 @@
+import Swal from "sweetalert2";
+
+import {FaAngleDoubleDown} from "react-icons/fa";
+
 import React, {useContext, useEffect, useState} from "react";
 import {motion} from "framer-motion";
 import {GrLike} from "react-icons/gr";
 import axios from "axios";
 import {AuthContext} from "../../ContextFiles/AuthContext";
-import Swal from "sweetalert2";
+
 import {toast} from "react-toastify";
+import Loder from "../../Loder/Loder";
+
 const MyBooks = () => {
+  const [bookIds, setBookIds] = useState(null);
+  const {loading} = useContext(AuthContext);
   const {user} = useContext(AuthContext);
   console.log(user);
 
   const [addedBook, setAddedBook] = useState([]);
 
   useEffect(() => {
-    axios("https://vercel-backend-for-bookshelf.vercel.app/allBooks").then(
-      (res) => {
+    axios
+      .get("https://vercel-backend-for-bookshelf.vercel.app/allBooks")
+      .then((res) => {
         console.log(res.data);
         const userBooks = res.data.filter(
           (userBook) => userBook.user.email === user?.email
         );
         setAddedBook(userBooks);
-      }
-    );
+      });
   }, [user?.email]);
   console.log(addedBook);
 
@@ -57,6 +65,106 @@ const MyBooks = () => {
         setAddedBook(left);
       });
   };
+
+  const bookId = (id) => {
+    setBookIds(id);
+  };
+
+  const [category, setCategory] = useState("");
+  const [status, setStatus] = useState("");
+
+  const [simgleBookData, setSingleBookData] = useState(null);
+
+  useEffect(() => {
+    if (simgleBookData?.book_category) {
+      setCategory(simgleBookData.book_category);
+    }
+    if (simgleBookData?.reading_status) {
+      setStatus(simgleBookData.reading_status);
+    }
+  }, [simgleBookData]);
+
+  const openModal = () => {
+    document.getElementById("my_modal_4").checked = true;
+  };
+
+  useEffect(() => {
+    if (bookIds) {
+      axios(
+        `https://vercel-backend-for-bookshelf.vercel.app/bookDetails/${bookIds}`
+      ).then((res) => {
+        setSingleBookData(res.data);
+      });
+    }
+  }, [bookIds]);
+
+  console.log(bookIds);
+
+  const handleUpdateBook = (e) => {
+    e.preventDefault();
+
+    if (!category) {
+      toast.warning("Please select a category", {
+        autoClose: 1000,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+      return;
+    } else if (!status) {
+      toast.warning("Please select Your Reading Status", {
+        autoClose: 1000,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+      return;
+    }
+
+    const form = e.target;
+
+    const book = {
+      book_title: form.bookName.value,
+      cover_photo: form.photo.value,
+      book_overview: form.overview.value,
+      book_author: form.authorName.value,
+      total_page: parseInt(form.page.value),
+      book_category: category,
+      reading_status: status,
+      user: {
+        name: form.name.value,
+        email: form.email.value,
+      },
+      upvote: parseInt(form.upvote.value),
+    };
+
+    if (bookIds) {
+      axios
+        .put(
+          `https://vercel-backend-for-bookshelf.vercel.app/allBooks/${bookIds}`,
+          book
+        )
+        .then(() => {
+          document.getElementById("my_modal_4").checked = false;
+          Swal.fire({
+            title: "Success!",
+            text: "Book Updated successfully!",
+            icon: "success",
+            confirmButtonText: "OK",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              window.location.reload();
+            }
+          });
+        });
+    }
+
+    console.log(book);
+  };
+
+  if (loading) {
+    return <Loder></Loder>;
+  }
 
   return (
     <motion.div
@@ -121,85 +229,201 @@ const MyBooks = () => {
                     </p>
                   </div>
 
-                  {user?.email == userSingleBook.user?.email ? (
-                    <div className="flex flex-row justify-between">
-                      <button className="btnnn"> Update</button>
-                      <button
-                        onClick={() => {
-                          Swal.fire({
-                            title: "Are you sure?",
-                            text: "You won’t be able to revert this!",
-                            icon: "warning",
-                            showCancelButton: true,
-                            confirmButtonColor: "#d33",
-                            cancelButtonColor: "#3085d6",
-                            confirmButtonText: "Yes, delete it!",
-                          }).then((result) => {
-                            if (result.isConfirmed) {
-                              handleDelete(userSingleBook._id);
+                  <div className="flex flex-row justify-between">
+                    <button
+                      onClick={() => {
+                        bookId(userSingleBook._id);
+                        openModal();
+                      }}
+                      className="btnnnn"
+                    >
+                      {" "}
+                      Update
+                    </button>
 
-                              Swal.fire({
-                                title: "Deleted!",
-                                text: "Your review has been deleted.",
-                                icon: "success",
+                    <button
+                      onClick={() => {
+                        Swal.fire({
+                          title: "Are you sure?",
+                          text: "You won’t be able to revert this!",
+                          icon: "warning",
+                          showCancelButton: true,
+                          confirmButtonColor: "#d33",
+                          cancelButtonColor: "#3085d6",
+                          confirmButtonText: "Yes, delete it!",
+                        }).then((result) => {
+                          if (result.isConfirmed) {
+                            handleDelete(userSingleBook._id);
 
-                                showConfirmButton: true,
-                              });
-                            }
-                          });
-                        }}
-                        className="btn font-bold text-white bg-red-600 rounded-lg"
-                      >
-                        Delete
-                      </button>
-                    </div>
-                  ) : (
-                    ""
-                  )}
+                            Swal.fire({
+                              title: "Deleted!",
+                              text: "Your review has been deleted.",
+                              icon: "success",
+
+                              showConfirmButton: true,
+                            });
+                          }
+                        });
+                      }}
+                      className="btn font-bold text-white bg-red-600 rounded-lg"
+                    >
+                      Delete
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         ))}
       </div>
+
+      <div>
+        <label htmlFor="my_modal_4" className="btnnnn hidden">
+          Update
+        </label>
+
+        <input type="checkbox" id="my_modal_4" className="modal-toggle" />
+        <div className="modal" role="dialog">
+          <div className="modal-box">
+            <div className="flex flex-row justify-between mb-5">
+              <h3 className="text-lg font-bold">Update Your Book </h3>
+
+              <label
+                htmlFor="my_modal_4"
+                className=" px-3 rounded-lg font-bold text-black hover:bg-red-400 hover:text-white cursor-pointer border-red-600 border-2"
+              >
+                X
+              </label>
+            </div>
+
+            <div className="w-full flex flex-col justify-center items-center ">
+              <form
+                onSubmit={handleUpdateBook}
+                className=" w-full flex flex-col justify-center items-center p-4 shadow-lg rounded-lg bg-blue-600/20 shadow-black  backdrop-blur-sm"
+              >
+                <input
+                  type="text"
+                  name="authorName"
+                  className=" p-2   border-2 w-full  rounded-lg  bg-white/80"
+                  placeholder="Enter Author Name"
+                  defaultValue={simgleBookData?.book_author}
+                  required
+                />{" "}
+                <br />
+                <input
+                  type="text"
+                  name="bookName"
+                  className=" p-2   border-2 w-full  rounded-lg  bg-white/80"
+                  placeholder="Enter Book Title"
+                  defaultValue={simgleBookData?.book_title}
+                  required
+                />{" "}
+                <br />
+                <input
+                  type="text"
+                  name="photo"
+                  className=" p-2   border-2 w-full  rounded-lg  bg-white/80"
+                  placeholder="Enter Book Cover Photo"
+                  defaultValue={simgleBookData?.cover_photo}
+                  required
+                />{" "}
+                <br />
+                <input
+                  type="number"
+                  name="page"
+                  className=" p-2   border-2 w-full  rounded-lg  bg-white/80"
+                  placeholder="Enter Total Page Number"
+                  defaultValue={simgleBookData?.total_page}
+                  required
+                />{" "}
+                <br />
+                <div className="flex flex-row gap-1 sm:gap-2  w-full">
+                  <div className="dropdown dropdown-center  w-full ">
+                    <div
+                      tabIndex={0}
+                      role="button"
+                      className="btn w-full px-1 border-black border-2 rounded-lg h-[44px] bg-white/80 "
+                    >
+                      {" "}
+                      {category || simgleBookData?.book_category}
+                      <FaAngleDoubleDown />
+                    </div>
+                    <ul
+                      tabIndex={0}
+                      className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2  shadow-sm font-semibold border mt-2"
+                    >
+                      {["Fiction", "Non-Fiction", "Fantasy"].map((item) => (
+                        <li key={item}>
+                          <a onClick={() => setCategory(item)}>{item}</a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <br />
+                  <div className="dropdown dropdown-center  w-full">
+                    <div
+                      tabIndex={0}
+                      role="button"
+                      className="btn w-full px-1 border-black border-2 rounded-lg h-[44px] bg-white/80"
+                    >
+                      {" "}
+                      {status || simgleBookData?.reading_status}
+                      <FaAngleDoubleDown />
+                    </div>
+                    <ul
+                      tabIndex={0}
+                      className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm font-semibold border   mt-2"
+                    >
+                      {["Read", "Reading", "Want to Read"].map((item) => (
+                        <li key={item}>
+                          <a onClick={() => setStatus(item)}>{item}</a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+                <br />
+                <input
+                  type="text"
+                  name="name"
+                  className=" p-2   border-2 w-full  rounded-lg  hidden"
+                  defaultValue={user?.displayName}
+                />{" "}
+                <input
+                  type="text"
+                  name="email"
+                  className=" p-2   border-2 w-full  rounded-lg  hidden"
+                  defaultValue={user?.email}
+                />{" "}
+                <input
+                  type="text"
+                  name="upvote"
+                  className=" p-2   border-2 w-full  rounded-lg hidden "
+                  defaultValue={0}
+                />{" "}
+                <textarea
+                  name="overview"
+                  rows="4"
+                  className="p-2   border-2 w-full  rounded-lg bg-white/80"
+                  placeholder="Write overview about the book..."
+                  defaultValue={simgleBookData?.book_overview}
+                  required
+                ></textarea>
+                <br />
+                <button
+                  type="submit"
+                  className="btn w-full bg-blue-500  border-black border-2 rounded-lg hover:bg-blue-400 hover:text-black text-white "
+                >
+                  Update Book
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
     </motion.div>
   );
 };
 
 export default MyBooks;
-
-// {user?.email == book.user?.email ? (
-//               <div className="flex flex-row justify-between">
-//                 <button className="btnnn"> Update</button>
-//                 <button
-//                   onClick={() => {
-//                     Swal.fire({
-//                       title: "Are you sure?",
-//                       text: "You won’t be able to revert this!",
-//                       icon: "warning",
-//                       showCancelButton: true,
-//                       confirmButtonColor: "#d33",
-//                       cancelButtonColor: "#3085d6",
-//                       confirmButtonText: "Yes, delete it!",
-//                     }).then((result) => {
-//                       if (result.isConfirmed) {
-//                         handleDelete(book._id);
-
-//                         Swal.fire({
-//                           title: "Deleted!",
-//                           text: "Your review has been deleted.",
-//                           icon: "success",
-
-//                           showConfirmButton: true,
-//                         });
-//                       }
-//                     });
-//                   }}
-//                   className="btn font-bold text-white bg-red-600 rounded-lg"
-//                 >
-//                   Delete
-//                 </button>
-//               </div>
-//             ) : (
-//               ""
-//             )}
