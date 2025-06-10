@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useParams} from "react-router";
 import Loder from "../Loder/Loder";
 import {Fade} from "react-awesome-reveal";
@@ -7,9 +7,15 @@ import {motion} from "framer-motion";
 import Swal from "sweetalert2";
 import {GrLike} from "react-icons/gr";
 
-import {AuthContext} from "../ContextFiles/AuthContext";
 import ReviewSection from "../Review/ReviewSection/ReviewSection";
 const DetailsPage = () => {
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  });
+
   const [book, setBook] = useState(null);
 
   const {id} = useParams();
@@ -33,12 +39,12 @@ const DetailsPage = () => {
       .catch((err) => console.error("Upvote error:", err));
   };
 
-  const handleDelete = () => {
-    console.log("delete");
-    axios.delete(
-      `https://vercel-backend-for-bookshelf.vercel.app/allBooks/${id}`
-    );
-  };
+  // const handleDelete = () => {
+  //   console.log("delete");
+  //   axios.delete(
+  //     `https://vercel-backend-for-bookshelf.vercel.app/allBooks/${id}`
+  //   );
+  // };
 
   if (!book) {
     return <Loder></Loder>;
@@ -100,8 +106,6 @@ const DetailsPage = () => {
                 {book.user?.email})
               </p>
             </div>
-
-            
           </div>
         </div>
       </div>

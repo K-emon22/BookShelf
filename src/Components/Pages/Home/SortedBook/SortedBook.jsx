@@ -26,7 +26,7 @@ const SortedBook = () => {
     <div className="mb-10 mx-[2%] lg:mx-[5%]  p-5 rounded-lg shadow-md">
       <Fade direction="down" cascade duration={800} triggerOnce={false}>
         <div className="">
-          <h1 className="text-3xl sm:text-5xl font-bold text-center mb-10">
+          <h1 className="text-3xl sm:text-5xl font-bold  mb-10">
             Popular Books
           </h1>
         </div>

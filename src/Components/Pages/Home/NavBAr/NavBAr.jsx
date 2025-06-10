@@ -4,6 +4,7 @@ import {HiMenuAlt3} from "react-icons/hi";
 import {AuthContext} from "../../../ContextFiles/AuthContext";
 import {signOut} from "firebase/auth";
 import {Auth} from "../../../Firebase/FirebaseAuth";
+import Swal from "sweetalert2";
 const NavBAr = () => {
   const {user, loading} = useContext(AuthContext);
 
@@ -129,7 +130,9 @@ const NavBAr = () => {
           </h1>
         </div>
         <div className="my-auto hidden [@media(min-width:850Px)]:block ">
-          <div className="flex gap-4  xl:gap-8 font-semibold mb-1.5">{pages}</div>
+          <div className="flex gap-4  xl:gap-8 font-semibold mb-1.5">
+            {pages}
+          </div>
         </div>
         <div className="[@media(min-width:850px)]:hidden my-auto">
           <h1 className="my-auto font-bold text-2xl ">Bookshelf</h1>{" "}
@@ -141,7 +144,7 @@ const NavBAr = () => {
             <div>
               {user ? (
                 <div className="dropdown dropdown-end">
-                  <div tabIndex={0} role="button" >
+                  <div tabIndex={0} role="button">
                     <img
                       className="h-10 my-auto mt-1 rounded-full"
                       src={user?.photoURL}
@@ -153,8 +156,33 @@ const NavBAr = () => {
                     tabIndex={0}
                     className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm mt-3 border-2"
                   >
-                    <li>{user?.displayName}</li>
-                    <button onClick={logOut} className="btnnnnn">
+                    <li className="font-bold mb-5 text-center mt-3">
+                      {user?.displayName}
+                    </li>
+                    <button
+                      onClick={() => {
+                        Swal.fire({
+                          title: "Are you sure You Want To Logout?",
+                          text: "You won’t be able to revert this!",
+                          icon: "warning",
+                          showCancelButton: true,
+                          confirmButtonColor: "#d33",
+                          cancelButtonColor: "#3085d6",
+                          confirmButtonText: "Yes, Logout",
+                        }).then((result) => {
+                          if (result.isConfirmed) {
+                            logOut();
+                            Swal.fire({
+                              title: "Logged Out!",
+                              text: "Successfully Logged Out.",
+                              icon: "success",
+                              showConfirmButton: true,
+                            });
+                          }
+                        });
+                      }}
+                      className="btnnnnn"
+                    >
                       {" "}
                       Logout{" "}
                     </button>

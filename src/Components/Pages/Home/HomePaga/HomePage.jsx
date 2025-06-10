@@ -6,6 +6,7 @@ import Loder from "../../../Loder/Loder";
 import FeatureCAt from "../FeatureCAt/FeatureCAt";
 import QnaSection from "../QnASection/QnaSection";
 import {motion} from "framer-motion";
+import NewsSection from "../NewsSection/NewsSection";
 const HomePage = () => {
   const [loding1, setLoading1] = useState(true);
 
@@ -29,9 +30,9 @@ const HomePage = () => {
       <Slider></Slider>
       <SortedBook></SortedBook>
       <FeatureCAt></FeatureCAt>
+
+      <NewsSection></NewsSection>
       <QnaSection></QnaSection>
-
-
     </motion.div>
   );
 };

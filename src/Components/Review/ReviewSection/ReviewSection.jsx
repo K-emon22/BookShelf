@@ -45,6 +45,8 @@ const ReviewSection = ({book}) => {
       });
   };
 
+
+
   return (
     <div className="mb-10 mt-10">
       <Fade direction="up" cascade duration={800} triggerOnce={false}>
