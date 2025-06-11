@@ -15,6 +15,9 @@ import {
 } from "recharts";
 
 const Profile = () => {
+  useEffect(() => {
+    window.scrollTo({top: 0, behavior: "smooth"});
+  });
   const {user, loading} = useContext(AuthContext);
   const [loding, setLoding] = useState(true);
   const [addedBook, setAddedBook] = useState([]);

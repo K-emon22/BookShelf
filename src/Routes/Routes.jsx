@@ -11,6 +11,7 @@ import Login from "../Components/Authentication/Login";
 import Register from "../Components/Authentication/Register";
 import Error from "../Components/Error/Error";
 import DetailsPage from "../Components/DetailsPage/DetailsPage";
+import TermsAndConditions from "../Components/Pages/Home/Term/TermsAndConditions";
 
 export const Routes = createBrowserRouter([
   {
@@ -45,7 +46,10 @@ export const Routes = createBrowserRouter([
       {
         path: "/bookDetails/:id",
         element: <DetailsPage></DetailsPage>,
-      },
+      },{
+        path:'/terms&condition',
+        element:<TermsAndConditions></TermsAndConditions>
+      }
     ],
   },
   {

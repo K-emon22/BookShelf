@@ -8,6 +8,9 @@ import {FaAngleDoubleDown} from "react-icons/fa";
 import Loder from "../../Loder/Loder";
 import {motion} from "framer-motion";
 const AddBook = () => {
+  useEffect(() => {
+    window.scrollTo({top: 0, behavior: "smooth"});
+  });
   const [loding, setLoding] = useState(true);
 
   const {user} = useContext(AuthContext);
@@ -102,19 +105,20 @@ const AddBook = () => {
           onSubmit={handleAddBook}
           className="w-3/4 sm:w-2/3 md:w-3/5 lg:w-2/5 flex flex-col justify-center items-center p-4 shadow-lg rounded-lg bg-blue-600/20 shadow-black  backdrop-blur-sm"
         >
-          <input
-            type="text"
-            name="authorName"
-            className=" p-2   border-2 w-full  rounded-lg  bg-white/80"
-            placeholder="Enter Author Name"
-            required
-          />{" "}
-          <br />
+         
           <input
             type="text"
             name="bookName"
             className=" p-2   border-2 w-full  rounded-lg  bg-white/80"
             placeholder="Enter Book Title"
+            required
+          />{" "}
+          <br />
+           <input
+            type="text"
+            name="authorName"
+            className=" p-2   border-2 w-full  rounded-lg  bg-white/80"
+            placeholder="Enter Author Name"
             required
           />{" "}
           <br />

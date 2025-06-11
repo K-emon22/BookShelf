@@ -94,6 +94,7 @@ const ReviewSection = ({book}) => {
                         <p className="text-sm text-gray-500">
                           ⭐ {item.rating}
                         </p>
+                        <p className="text-sm text-gray-500">Added At: {item?.createdAt}</p>
                       </div>
                     </div>
                     <p className="text-gray-800 text-justify">{item.review}</p>

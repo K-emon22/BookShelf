@@ -6,6 +6,7 @@ import {useContext, useEffect, useState} from "react";
 import {FaGoogle} from "react-icons/fa";
 import {AuthContext} from "../ContextFiles/AuthContext";
 import {updateProfile} from "firebase/auth";
+import {toast} from "react-toastify";
 const Register = () => {
   const [loder, setLoder] = useState(true);
   const {googleLogin, createUser} = useContext(AuthContext);
@@ -17,6 +18,37 @@ const Register = () => {
     const photo = e.target.photo.value;
     const password = e.target.password.value;
     console.log(name, email, photo, password);
+
+    if (password.length < 6) {
+      toast.error("Password must be at least 6 characters long.", {
+        autoClose: 1000,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+
+      return;
+    }
+    if (!/[A-Z]/.test(password)) {
+      toast.error("Password must contain at least one uppercase letter.", {
+        autoClose: 1000,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+
+      return;
+    }
+    if (!/[a-z]/.test(password)) {
+      toast.error("Password must contain at least one lowercase letter.", {
+        autoClose: 1000,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+
+      return;
+    }
 
     createUser(email, password)
       .then((result) => {
@@ -32,7 +64,30 @@ const Register = () => {
             console.error("Error updating profile:", err);
           });
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        if (err.code === "auth/email-already-in-use") {
+          toast.error("Email is already in use.", {
+            autoClose: 1000,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+          });
+        } else if (err.code === "auth/invalid-email") {
+          toast.error("Invalid email address.", {
+            autoClose: 1000,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+          });
+        } else {
+          toast.error(err.message || "Registration failed", {
+            autoClose: 1000,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+          });
+        }
+      });
   };
 
   const googleLogins = () => {
@@ -83,6 +138,7 @@ const Register = () => {
             name="name"
             className="border-2 border-blue-600 p-2 h-10 font-semibold rounded-lg md:w-full bg-white/40 "
             placeholder=" Enter Your Name"
+            required
           />
           <br />
           <input
@@ -90,6 +146,7 @@ const Register = () => {
             name="email"
             className="border-2 border-blue-600 p-2 h-10 font-semibold rounded-lg md:w-full bg-white/40"
             placeholder=" Enter Your email"
+            required
           />
           <br />
           <input
@@ -97,6 +154,7 @@ const Register = () => {
             name="photo"
             className="border-2 border-blue-800 p-2 h-10 font-semibold rounded-lg md:w-full bg-white/40"
             placeholder=" Enter Your Photo Url"
+            required
           />
           <br />
           <input
@@ -104,15 +162,16 @@ const Register = () => {
             name="password"
             className="border-2 border-blue-600 p-2 h-10 font-semibold rounded-lg md:w-full bg-white/40"
             placeholder=" Enter Your Password"
+            required
           />
 
           <button
             onClick={googleLogins}
             type="button"
-            className="  flex flex-row  items-center gap-2 hover:bg-blue-500 hover:text-white cursor-pointer mt-8 font-bold border-2 w-[206.5px] md:w-full bg-[#F5F5F5]   h-10 my-auto rounded-full mb-2"
+            className="  flex flex-row items-center justify-center gap-2 hover:bg-blue-500 hover:text-white cursor-pointer mt-8 font-bold border-2 w-[206.5px] md:w-full bg-[#F5F5F5]   h-10 my-auto rounded-full mb-2"
           >
             {" "}
-            <span className="mr-16 ml-5">
+            <span className="">
               <FaGoogle size={25} />{" "}
             </span>{" "}
             <span>Login With Google </span>

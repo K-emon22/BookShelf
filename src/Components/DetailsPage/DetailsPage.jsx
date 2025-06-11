@@ -39,12 +39,6 @@ const DetailsPage = () => {
       .catch((err) => console.error("Upvote error:", err));
   };
 
-  // const handleDelete = () => {
-  //   console.log("delete");
-  //   axios.delete(
-  //     `https://vercel-backend-for-bookshelf.vercel.app/allBooks/${id}`
-  //   );
-  // };
 
   if (!book) {
     return <Loder></Loder>;

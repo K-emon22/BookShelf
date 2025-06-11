@@ -24,13 +24,23 @@ const AddReview = ({book, hasUserReviewed}) => {
     const rating = parseFloat(e.target.rating.value);
     const review = e.target.review.value;
     const book_title = e.target.title.value;
-
+    const now = new Date();
+    const options = {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true,
+    };
+    const createdAt = now.toLocaleString(undefined, options);
     const userRev = {
       book_title,
       image,
       rating,
       review,
       user_name,
+      createdAt,
     };
 
     axios
@@ -101,6 +111,9 @@ const AddReview = ({book, hasUserReviewed}) => {
                 name="rating"
                 placeholder="Give rating..."
                 required
+                min="0"
+                max="5"
+                step="0.1"
               />
               <br />
               <input

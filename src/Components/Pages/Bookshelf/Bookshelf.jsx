@@ -7,6 +7,9 @@ import Loder from "../../Loder/Loder";
 import {Link} from "react-router";
 import {GrLike} from "react-icons/gr";
 const Bookshelf = () => {
+  useEffect(() => {
+    window.scrollTo({top: 0, behavior: "smooth"});
+  });
   const [sorted, setSorted] = useState([]);
 
   const [loding2, setLoding2] = useState(true);
@@ -108,9 +111,6 @@ const Bookshelf = () => {
           ))}
         </div>
       )}
-
-
-      
     </motion.div>
   );
 };

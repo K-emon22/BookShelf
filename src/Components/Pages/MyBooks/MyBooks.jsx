@@ -30,6 +30,9 @@ const MyBooks = () => {
       setLod(false);
     }, 500);
   });
+  useEffect(() => {
+    window.scrollTo({top: 0, behavior: "smooth"});
+  });
 
   useEffect(() => {
     axios
