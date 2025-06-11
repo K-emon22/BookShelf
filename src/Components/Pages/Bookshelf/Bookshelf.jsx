@@ -10,25 +10,67 @@ const Bookshelf = () => {
   useEffect(() => {
     window.scrollTo({top: 0, behavior: "smooth"});
   });
-  const [sorted, setSorted] = useState([]);
-
-  const [loding2, setLoding2] = useState(true);
+  const [allBooks, setAllBooks] = useState([]);
+  const [filteredBooks, setFilteredBooks] = useState([]);
+  const [category, setCategory] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     axios
       .get("https://vercel-backend-for-bookshelf.vercel.app/allBooks")
-      .then((data) => {
-        setSorted(data.data);
-        setLoding2(false);
+      .then((res) => {
+        setAllBooks(res.data);
+
+        setLoading(false);
       })
       .catch((err) => {
         console.error(err);
       });
   }, []);
 
-  console.log(sorted);
+  const handleChange = (e) => {
+    setCategory(e.target.value);
+  };
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
 
-  if (loding2) {
+  // useEffect(() => {
+  //   const lower = searchTerm.toLowerCase();
+  //   const filtered = allBooks.filter(
+  //     (book) =>
+  //       book?.book_title?.toLowerCase().includes(lower) ||
+  //       book?.book_author?.toLowerCase().includes(lower)
+  //   );
+  //   setFilteredBooks(filtered);
+  // }, [searchTerm, allBooks]);
+
+  useEffect(() => {
+    const lower = searchTerm.toLowerCase();
+    const filtered = allBooks.filter(
+      (book) =>
+        (!category ||
+          book?.book_category?.toLowerCase() === category.toLowerCase()) &&
+        (!searchTerm ||
+          book?.book_title?.toLowerCase().includes(lower) ||
+          book?.book_author?.toLowerCase().includes(lower))
+    );
+    setFilteredBooks(filtered);
+  }, [category, searchTerm, allBooks]);
+
+  useEffect(() => {
+    if (!category) {
+      setFilteredBooks(allBooks);
+    } else if (category) {
+      const filtered = allBooks.filter(
+        (book) => book?.book_category === category
+      );
+      setFilteredBooks(filtered);
+    }
+  }, [category, allBooks]);
+
+  if (loading) {
     return <Loder></Loder>;
   }
 
@@ -38,22 +80,55 @@ const Bookshelf = () => {
       animate={{opacity: 1, y: 0}}
       exit={{opacity: 0, y: -40}}
       transition={{duration: 1.2}}
-      className="mb-10 mx-[2%] lg:mx-[5%]  p-5 rounded-lg shadow-md"
+      className="mb-10 mx-[2%] lg:mx-[5%] min-h-screen p-5 rounded-lg shadow-md"
     >
       <Fade direction="down" cascade duration={800} triggerOnce={false}>
         <div className="">
           <h1 className="text-3xl sm:text-5xl font-bold text-center mb-10">
             All Books
           </h1>
+
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4 p-4 bg-white rounded-xl shadow my-4">
+            <input
+              type="text"
+              placeholder="Search by book title or author..."
+              className="w-full md:w-1/2 px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={searchTerm}
+              onChange={handleSearchChange}
+            />
+
+            <select
+              className="w-full md:w-1/4 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={category}
+              onChange={handleChange}
+            >
+              <option value="">All Categories</option>
+              <option value="Fiction">Fiction</option>
+              <option value="Non-Fiction">Non-fiction</option>
+              <option value="Fantasy">Fantasy</option>
+            </select>
+          </div>
         </div>
       </Fade>
-      {loding2 ? (
+      {loading ? (
         <div className="flex justify-center items-center h-[50vh]">
           <div className="w-12 h-12 border-5 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
         </div>
+      ) : filteredBooks.length === 0 ? (
+        <div className="text-center p-10 bg-blue-400/40 border border-dashed border-gray-300 rounded-lg shadow-sm">
+          <h2 className="text-2xl font-semibold text-gray-700 mb-2">
+            No books found
+          </h2>
+          <p className="text-gray-500">
+            We couldn't find any books under the selected category.
+          </p>
+          <div className="flex justify-center items-center">
+            <img className="w-[300px] " src="research-paper-animate.svg" alt="" />
+          </div>
+        </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5  ">
-          {sorted.map((sort) => (
+          {filteredBooks.map((sort) => (
             <div key={sort._id}>
               <motion.div
                 whileHover={{

@@ -20,36 +20,6 @@ const Login = () => {
     const email = e.target.email.value;
     const password = e.target.password.value;
 
-    if (password.length < 6) {
-      toast.error("Password must be at least 6 characters long.", {
-        autoClose: 1000,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-      });
-
-      return;
-    }
-    if (!/[A-Z]/.test(password)) {
-      toast.error("Password must contain at least one uppercase letter.", {
-        autoClose: 1000,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-      });
-
-      return;
-    }
-    if (!/[a-z]/.test(password)) {
-      toast.error("Password must contain at least one lowercase letter.", {
-        autoClose: 1000,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-      });
-
-      return;
-    }
 
     loginWithPass(email, password)
       .then(() => {
