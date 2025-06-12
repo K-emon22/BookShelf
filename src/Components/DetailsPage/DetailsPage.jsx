@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {useParams} from "react-router";
 import Loder from "../Loder/Loder";
 import {Fade} from "react-awesome-reveal";
@@ -8,6 +8,8 @@ import Swal from "sweetalert2";
 import {GrLike} from "react-icons/gr";
 
 import ReviewSection from "../Review/ReviewSection/ReviewSection";
+import {AuthContext} from "../ContextFiles/AuthContext";
+import { toast } from "react-toastify";
 const DetailsPage = () => {
   useEffect(() => {
     window.scrollTo({
@@ -15,20 +17,33 @@ const DetailsPage = () => {
       behavior: "smooth",
     });
   });
+  const {user} = useContext(AuthContext);
 
   const [book, setBook] = useState(null);
 
   const {id} = useParams();
 
   useEffect(() => {
-    axios(`https://vercel-backend-for-bookshelf.vercel.app/bookDetails/${id}`)
+    axios
+      .get(`https://vercel-backend-for-bookshelf.vercel.app/bookDetails/${id}`)
       .then((data) => {
         setBook(data.data);
+        setReadingStatus(data.data.reading_status);
       })
       .catch((err) => console.error("Fetch error:", err));
   }, [id]);
 
   const handleUpvote = () => {
+    if (book.user.email === user.email) {
+      toast.error("User can not upvote his own book.", {
+              autoClose: 1000,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+            });
+      return;
+
+    }
     axios
       .patch(`https://vercel-backend-for-bookshelf.vercel.app/upvote/${id}`)
 
@@ -39,10 +54,25 @@ const DetailsPage = () => {
       .catch((err) => console.error("Upvote error:", err));
   };
 
+  const [readingStatus, setReadingStatus] = useState("");
+
+  const readingStatusss = (e) => {
+    const newStatus = e.target.value;
+
+    setReadingStatus(newStatus);
+
+    axios
+      .patch(
+        `https://vercel-backend-for-bookshelf.vercel.app/bookDetails/${id}`,
+        {reading_status: newStatus}
+      )
+      .then((res) => setBook(res.data));
+  };
 
   if (!book) {
     return <Loder></Loder>;
   }
+  console.log(book);
 
   return (
     <div className="mx-[2%] lg:mx-[5%]">
@@ -85,12 +115,39 @@ const DetailsPage = () => {
             <p className="text-gray-700 mb-1">
               <strong>Category:</strong> {book.book_category}
             </p>
-            <p className="text-gray-700 mb-1">
+            <p className="text-gray-700 mb-2">
               <strong>Total Pages:</strong> {book.total_page}
             </p>
-            <p className="text-gray-700 mb-1">
-              <strong>Reading Status:</strong> {book.reading_status}
-            </p>
+
+            <div className="flex flex-row gap-2 mb-2">
+              <strong className="my-auto text-gray-700">
+                Reading Status:{" "}
+              </strong>
+
+              <select
+                className="border border-gray-300 px-2 py-1 rounded"
+                value={readingStatus}
+                onChange={readingStatusss}
+              >
+                {book.reading_status === "Want to Read" && (
+                  <>
+                    <option value="Want to Read">Want to Read</option>
+                    <option value="Reading">Reading</option>
+                  </>
+                )}
+
+                {book.reading_status === "Reading" && (
+                  <>
+                    <option value="Reading">Reading</option>
+                    <option value="Read">Read</option>
+                  </>
+                )}
+
+                {book.reading_status === "Read" && (
+                  <option value="Read">Read</option>
+                )}
+              </select>
+            </div>
             <p className="text-gray-700 mb-4">
               <strong>Overview:</strong> {book.book_overview}
             </p>

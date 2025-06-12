@@ -1,4 +1,4 @@
-import {Link} from "react-router";
+import {Link, useNavigate} from "react-router";
 import {Typewriter} from "react-simple-typewriter";
 import {Fade} from "react-awesome-reveal";
 import Loder from "../Loder/Loder";
@@ -10,7 +10,7 @@ import {toast} from "react-toastify";
 const Register = () => {
   const [loder, setLoder] = useState(true);
   const {googleLogin, createUser} = useContext(AuthContext);
-
+  const navigate = useNavigate();
   const register = (e) => {
     e.preventDefault();
     const name = e.target.name.value;
@@ -59,6 +59,7 @@ const Register = () => {
         })
           .then(() => {
             e.target.reset();
+            navigate("/");
           })
           .catch((err) => {
             console.error("Error updating profile:", err);
@@ -91,7 +92,11 @@ const Register = () => {
   };
 
   const googleLogins = () => {
-    googleLogin().catch((err) => console.error(err));
+    googleLogin()
+      .then(() => {
+        navigate("/");
+      })
+      .catch((err) => console.error(err));
   };
 
   useEffect(() => {

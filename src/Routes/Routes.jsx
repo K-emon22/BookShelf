@@ -12,6 +12,7 @@ import Register from "../Components/Authentication/Register";
 import Error from "../Components/Error/Error";
 import DetailsPage from "../Components/DetailsPage/DetailsPage";
 import TermsAndConditions from "../Components/Pages/Home/Term/TermsAndConditions";
+import PrivateRoute from "../Components/ContextFiles/PrivateRoute";
 
 export const Routes = createBrowserRouter([
   {
@@ -25,15 +26,27 @@ export const Routes = createBrowserRouter([
       {path: "/bookshelf", element: <Bookshelf></Bookshelf>},
       {
         path: "/addBook",
-        element: <AddBook></AddBook>,
+        element: (
+          <PrivateRoute>
+            <AddBook></AddBook>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/myBooks",
-        element: <MyBooks></MyBooks>,
+        element: (
+          <PrivateRoute>
+            <MyBooks></MyBooks>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/profile",
-        element: <Profile></Profile>,
+        element: (
+          <PrivateRoute>
+            <Profile></Profile>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/login",
@@ -45,11 +58,16 @@ export const Routes = createBrowserRouter([
       },
       {
         path: "/bookDetails/:id",
-        element: <DetailsPage></DetailsPage>,
-      },{
-        path:'/terms&condition',
-        element:<TermsAndConditions></TermsAndConditions>
-      }
+        element: (
+          <PrivateRoute>
+            <DetailsPage></DetailsPage>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/terms&condition",
+        element: <TermsAndConditions></TermsAndConditions>,
+      },
     ],
   },
   {

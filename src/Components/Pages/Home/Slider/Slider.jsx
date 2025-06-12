@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useCallback} from "react";
+import React, {useEffect, useState, useCallback, useContext} from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import {Link} from "react-router";
@@ -6,12 +6,15 @@ import {GrPrevious} from "react-icons/gr";
 import {GrNext} from "react-icons/gr";
 import {FiPlay} from "react-icons/fi";
 import {IoPause} from "react-icons/io5";
+import {AuthContext} from "../../../ContextFiles/AuthContext";
 
 export const Slider = () => {
   window.scroll({
     top: 0,
     behavior: "smooth",
   });
+
+  const {user} = useContext(AuthContext);
 
   const [emblaRef, emblaApi] = useEmblaCarousel({loop: true}, [
     Autoplay({delay: 3000, playOnInit: false}),
@@ -64,7 +67,7 @@ export const Slider = () => {
     {
       image:
         "https://i.ibb.co/MkWrsnhp/old-book-flying-letters-magic-light-background-bookshelf-library-ancient-books-as-symbol-knowledge-h.webp",
-      text: "Explore all ancient books in one scroll.",
+      text: "Explore all Kind of books in one scroll.",
     },
   ];
 
@@ -82,12 +85,21 @@ export const Slider = () => {
                   <h1 className="text-white sm:text-xl md:text-2xl font-semibold sm:font-bold">
                     {slide.text}
                   </h1>
-                  <Link
-                    to={"/login"}
-                    className="btnnn w-[150px]  font-semibold"
-                  >
-                    Read Books
-                  </Link>
+                  {user ? (
+                    <Link
+                      to={"/bookshelf"}
+                      className="btnnn w-[150px]  font-semibold"
+                    >
+                      Read Now
+                    </Link>
+                  ) : (
+                    <Link
+                      to={"/login"}
+                      className="btnnn w-[150px]  font-semibold"
+                    >
+                      Login Now
+                    </Link>
+                  )}
                 </div>
               </div>
             </div>

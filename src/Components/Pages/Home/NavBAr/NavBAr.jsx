@@ -1,5 +1,5 @@
-import React, {useContext} from "react";
-import {Link, NavLink} from "react-router";
+import React, {use, useContext} from "react";
+import {Link, NavLink, useNavigate} from "react-router";
 import {HiMenuAlt3} from "react-icons/hi";
 import {AuthContext} from "../../../ContextFiles/AuthContext";
 import {signOut} from "firebase/auth";
@@ -7,11 +7,13 @@ import {Auth} from "../../../Firebase/FirebaseAuth";
 import Swal from "sweetalert2";
 const NavBAr = () => {
   const {user, loading} = useContext(AuthContext);
-
-  console.log(user?.photoURL);
+  const navigate = useNavigate();
+  console.log(user);
+console.log(user?.accessToken);
 
   const logOut = () => {
     signOut(Auth);
+    navigate("/");
   };
 
   const pages = (

@@ -1,4 +1,4 @@
-import {Link} from "react-router";
+import {Link, useLocation, useNavigate} from "react-router";
 import {Typewriter} from "react-simple-typewriter";
 import {Fade} from "react-awesome-reveal";
 import Loder from "../Loder/Loder";
@@ -7,12 +7,20 @@ import {FaGoogle} from "react-icons/fa";
 import {AuthContext} from "../ContextFiles/AuthContext";
 import {toast} from "react-toastify";
 const Login = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location.state?.from?.pathname || "/";
+
   const [loder, setLoder] = useState(true);
 
   const {googleLogin, loginWithPass} = useContext(AuthContext);
 
   const loginWithGoogle = () => {
-    googleLogin().catch((err) => console.error(err));
+    googleLogin()
+      .then(() => {
+        navigate(from, {replace: true});
+      })
+      .catch((err) => console.error(err));
   };
   const loginWithPassword = (e) => {
     e.preventDefault();
@@ -20,10 +28,10 @@ const Login = () => {
     const email = e.target.email.value;
     const password = e.target.password.value;
 
-
     loginWithPass(email, password)
       .then(() => {
         e.target.reset();
+        navigate(from, {replace: true});
       })
       .catch((err) => {
         console.error(err);

@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, {useEffect, useState} from "react";
 import {Fade} from "react-awesome-reveal";
-
+import { BsSearch } from "react-icons/bs";
 import {motion} from "framer-motion";
 import Loder from "../../Loder/Loder";
 import {Link} from "react-router";
@@ -36,16 +36,7 @@ const Bookshelf = () => {
     setSearchTerm(e.target.value);
   };
 
-  // useEffect(() => {
-  //   const lower = searchTerm.toLowerCase();
-  //   const filtered = allBooks.filter(
-  //     (book) =>
-  //       book?.book_title?.toLowerCase().includes(lower) ||
-  //       book?.book_author?.toLowerCase().includes(lower)
-  //   );
-  //   setFilteredBooks(filtered);
-  // }, [searchTerm, allBooks]);
-
+ 
   useEffect(() => {
     const lower = searchTerm.toLowerCase();
     const filtered = allBooks.filter(
@@ -89,16 +80,21 @@ const Bookshelf = () => {
           </h1>
 
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 p-4 bg-white rounded-xl shadow my-4">
-            <input
+            <div className="flex flex-row">
+
+              <input
               type="text"
               placeholder="Search by book title or author..."
-              className="w-full md:w-1/2 px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className=" w-full px-4 py-2 border-2 md:w-[300px] border-blue-400 border-r-0 rounded-lg rounded-r-none focus:outline-none focus:ring-0 "
               value={searchTerm}
               onChange={handleSearchChange}
             />
-
+<div className="h-[44px] w-[50px] bg-blue-400 flex justify-center rounded-lg rounded-l-none items-center">
+  <span ><BsSearch   size={25} /></span>
+</div>
+            </div>
             <select
-              className="w-full md:w-1/4 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full h-[44px] md:w-[300px] px-4 py-2 border-2  border-blue-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
               value={category}
               onChange={handleChange}
             >
