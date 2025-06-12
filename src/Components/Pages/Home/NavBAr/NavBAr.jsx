@@ -9,7 +9,7 @@ const NavBAr = () => {
   const {user, loading} = useContext(AuthContext);
   const navigate = useNavigate();
   console.log(user);
-console.log(user?.accessToken);
+  console.log(user?.accessToken);
 
   const logOut = () => {
     signOut(Auth);
