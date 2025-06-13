@@ -5,7 +5,12 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import {toast} from "react-toastify";
 
-const AddReview = ({book, hasUserReviewed}) => {
+const AddReview = ({
+  book,
+  hasUserReviewed,
+  fetchReviews,
+  setHasUserReviewed,
+}) => {
   const {user} = useContext(AuthContext);
 
   const reviewed = () => {
@@ -21,6 +26,7 @@ const AddReview = ({book, hasUserReviewed}) => {
     e.preventDefault();
     const user_name = user?.displayName;
     const image = e.target.photo.value;
+
     const rating = parseFloat(e.target.rating.value);
     const review = e.target.review.value;
     const book_title = e.target.title.value;
@@ -49,15 +55,15 @@ const AddReview = ({book, hasUserReviewed}) => {
       .then(() => {
         document.getElementById("my_modal_5").close();
         e.target.reset();
+
+        setHasUserReviewed(true);
+        fetchReviews();
         return Swal.fire({
           icon: "success",
           title: "Thank you!",
           text: "Your review has been submitted.",
           confirmButtonColor: "#3085d6",
         });
-      })
-      .then(() => {
-        window.location.reload();
       });
   };
 

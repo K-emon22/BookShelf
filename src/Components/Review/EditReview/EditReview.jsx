@@ -4,7 +4,7 @@ import {AuthContext} from "../../ContextFiles/AuthContext";
 import axios from "axios";
 import Swal from "sweetalert2";
 
-const EditReview = ({book}) => {
+const EditReview = ({book, fetchReviews}) => {
   const {user} = useContext(AuthContext);
   const [rev, setRev] = useState();
   const review = (e, id) => {
@@ -40,7 +40,7 @@ const EditReview = ({book}) => {
         });
       })
       .then(() => {
-        window.location.reload();
+        fetchReviews();
       });
   };
 

@@ -45,8 +45,6 @@ const ReviewSection = ({book}) => {
       });
   };
 
-
-
   return (
     <div className="mb-10 mt-10">
       <Fade direction="up" cascade duration={800} triggerOnce={false}>
@@ -64,10 +62,14 @@ const ReviewSection = ({book}) => {
         <div>
           {user && (
             <div className="flex justify-center mb-10 hover:scale-110 transition-transform">
+             
+
               <AddReview
                 book={book}
                 hasUserReviewed={hasUserReviewed}
-                refreshReviews={fetchReviews}
+                setReview={setReview}
+                setHasUserReviewed={() => {}}
+                fetchReviews={fetchReviews}
               />
             </div>
           )}
@@ -88,13 +90,16 @@ const ReviewSection = ({book}) => {
                         src={item.image}
                         alt="Reviewer"
                         className="w-12 h-12 rounded-full border"
+                        referrerPolicy="no-referrer"
                       />
                       <div>
                         <p className="font-semibold">{item.user_name}</p>
                         <p className="text-sm text-gray-500">
                           ⭐ {item.rating}
                         </p>
-                        <p className="text-sm text-gray-500">Added At: {item?.createdAt}</p>
+                        <p className="text-sm text-gray-500">
+                          Added At: {item?.createdAt}
+                        </p>
                       </div>
                     </div>
                     <p className="text-gray-800 text-justify">{item.review}</p>
@@ -105,6 +110,7 @@ const ReviewSection = ({book}) => {
                           <EditReview
                             book={book}
                             refreshReviews={fetchReviews}
+                             fetchReviews={fetchReviews}
                           />
                         </div>
 
