@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, {useEffect, useState} from "react";
 import {Fade} from "react-awesome-reveal";
-import { BsSearch } from "react-icons/bs";
+import {BsSearch} from "react-icons/bs";
 import {motion} from "framer-motion";
 import Loder from "../../Loder/Loder";
 import {Link} from "react-router";
@@ -36,7 +36,6 @@ const Bookshelf = () => {
     setSearchTerm(e.target.value);
   };
 
- 
   useEffect(() => {
     const lower = searchTerm.toLowerCase();
     const filtered = allBooks.filter(
@@ -50,16 +49,7 @@ const Bookshelf = () => {
     setFilteredBooks(filtered);
   }, [category, searchTerm, allBooks]);
 
-  useEffect(() => {
-    if (!category) {
-      setFilteredBooks(allBooks);
-    } else if (category) {
-      const filtered = allBooks.filter(
-        (book) => book?.book_category === category
-      );
-      setFilteredBooks(filtered);
-    }
-  }, [category, allBooks]);
+  
 
   if (loading) {
     return <Loder></Loder>;
@@ -80,18 +70,19 @@ const Bookshelf = () => {
           </h1>
 
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 p-4 bg-white rounded-xl shadow my-4">
-            <div className="flex flex-row">
-
+            <div className="flex flex-row w-full">
               <input
-              type="text"
-              placeholder="Search by book title or author..."
-              className=" w-full px-4 py-2 border-2 md:w-[300px] border-blue-400 border-r-0 rounded-lg rounded-r-none focus:outline-none focus:ring-0 "
-              value={searchTerm}
-              onChange={handleSearchChange}
-            />
-<div className="h-[44px] w-[50px] bg-blue-400 flex justify-center rounded-lg rounded-l-none items-center">
-  <span ><BsSearch   size={25} /></span>
-</div>
+                type="text"
+                placeholder="Search by book title or author..."
+                className=" w-full px-4 py-2 border-2 md:w-[300px] border-blue-400 border-r-0 rounded-lg rounded-r-none focus:outline-none focus:ring-0 "
+                value={searchTerm}
+                onChange={handleSearchChange}
+              />
+              <div className="h-[44px] w-[50px] bg-blue-400 flex justify-center rounded-lg rounded-l-none items-center">
+                <span>
+                  <BsSearch size={25} />
+                </span>
+              </div>
             </div>
             <select
               className="w-full h-[44px] md:w-[300px] px-4 py-2 border-2  border-blue-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
@@ -119,7 +110,11 @@ const Bookshelf = () => {
             We couldn't find any books under the selected category.
           </p>
           <div className="flex justify-center items-center">
-            <img className="w-[300px] " src="research-paper-animate.svg" alt="" />
+            <img
+              className="w-[300px] "
+              src="research-paper-animate.svg"
+              alt=""
+            />
           </div>
         </div>
       ) : (

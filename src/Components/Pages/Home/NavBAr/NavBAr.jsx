@@ -9,7 +9,6 @@ const NavBAr = () => {
   const {user, loading} = useContext(AuthContext);
   const navigate = useNavigate();
   console.log(user);
-  console.log(user?.accessToken);
 
   const logOut = () => {
     signOut(Auth);
@@ -112,8 +111,6 @@ const NavBAr = () => {
     </>
   );
 
-  console.log(user);
-
   return (
     <div className="sticky top-0 z-50   backdrop-blur-sm bg-blue-600/30">
       <nav className="flex flex-row justify-between mb-10 pt-1 px-[2%] lg:px-[5%] border-b">
@@ -149,7 +146,10 @@ const NavBAr = () => {
                   <div tabIndex={0} role="button">
                     <img
                       className="h-10 my-auto mt-1 rounded-full"
-                      src={user?.photoURL}
+                      src={
+                        user?.photoURL ||
+                        "https://i.ibb.co/gMjyVLT5/creative-book-logo-vector-design-10968791.png"
+                      }
                       alt=""
                       referrerPolicy="no-referrer"
                     />
@@ -159,7 +159,7 @@ const NavBAr = () => {
                     className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm mt-3 border-2"
                   >
                     <li className="font-bold mb-5 text-center mt-3">
-                      {user?.displayName}
+                      {user?.displayName || "User"}
                     </li>
                     <button
                       onClick={() => {

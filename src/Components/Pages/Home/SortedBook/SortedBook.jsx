@@ -1,23 +1,30 @@
 import axios from "axios";
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {Fade} from "react-awesome-reveal";
 
 import {motion} from "framer-motion";
 import {GrLike} from "react-icons/gr";
 import {Link} from "react-router";
+import { AuthContext } from "../../../ContextFiles/AuthContext";
 
 const SortedBook = () => {
+  const {user}=useContext(AuthContext)
+  const token=user?.accessToken
+
+  
   const [sorted, setSorted] = useState([]);
 
   const [loding2, setLoding2] = useState(true);
 
   useEffect(() => {
-    axios("https://vercel-backend-for-bookshelf.vercel.app/sorted").then(
-      (data) => {
-        setSorted(data.data);
-        setLoding2(false);
-      }
-    );
+    axios("https://vercel-backend-for-bookshelf.vercel.app/sorted", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((data) => {
+      setSorted(data.data);
+      setLoding2(false);
+    });
   }, []);
 
   console.log(sorted);

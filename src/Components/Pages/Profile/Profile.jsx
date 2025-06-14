@@ -21,29 +21,38 @@ const Profile = () => {
   const {user, loading} = useContext(AuthContext);
   const [loding, setLoding] = useState(true);
   const [addedBook, setAddedBook] = useState([]);
-
+  const accessToken = user?.accessToken;
+  const email = user?.email;
   useEffect(() => {
+    if (!user || !accessToken || !email) return;
     axios
-      .get("https://vercel-backend-for-bookshelf.vercel.app/allBooks")
+      .get(
+        `https://vercel-backend-for-bookshelf.vercel.app/alldata?email=${email}`,
+        {
+          headers: {
+            authorization: `Bearer ${accessToken}`,
+          },
+        }
+      )
       .then((res) => {
-        setAddedBook(res.data);
+        setAddedBook(res.data.allBook);
         setLoding(false);
       });
-  }, []);
+  }, [user, accessToken, email]);
 
-  const userBook = addedBook.filter((book) => book.user.email === user?.email);
+  const userBook = addedBook.filter((book) => book.user?.email === user?.email);
   console.log(userBook);
 
   const Fantasy = addedBook.filter(
-    (boo) => boo.book_category == "Fantasy" && boo.user.email === user?.email
+    (boo) => boo.book_category == "Fantasy" && boo.user?.email === user?.email
   );
 
   const NonFiction = addedBook.filter(
     (boo) =>
-      boo.book_category == "Non-Fiction" && boo.user.email === user?.email
+      boo.book_category == "Non-Fiction" && boo.user?.email === user?.email
   );
   const Fiction = addedBook.filter(
-    (boo) => boo.book_category == "Fiction" && boo.user.email === user?.email
+    (boo) => boo.book_category == "Fiction" && boo.user?.email === user?.email
   );
 
   console.log(Fantasy.length, NonFiction.length, Fiction.length);
@@ -85,7 +94,7 @@ const Profile = () => {
         ) : (
           <div className="flex flex-col justify-center items-center gap-5 py-5 ">
             <img
-              className="rounded-full sm:w-40 md:w-60"
+              className="rounded-full w-25 sm:w-40 md:w-60"
               src={user?.photoURL}
               alt=""
               referrerPolicy="no-referrer"

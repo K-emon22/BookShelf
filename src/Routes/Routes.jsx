@@ -14,6 +14,10 @@ import DetailsPage from "../Components/DetailsPage/DetailsPage";
 import TermsAndConditions from "../Components/Pages/Home/Term/TermsAndConditions";
 import PrivateRoute from "../Components/ContextFiles/PrivateRoute";
 
+import Friction from "../Components/Pages/Home/FeatureCAtegorySorted/Friction";
+import NonFriction from "../Components/Pages/Home/FeatureCAtegorySorted/NonFriction";
+import Fantacy from "../Components/Pages/Home/FeatureCAtegorySorted/Fantacy";
+
 export const Routes = createBrowserRouter([
   {
     path: "/",
@@ -67,6 +71,18 @@ export const Routes = createBrowserRouter([
       {
         path: "/terms&condition",
         element: <TermsAndConditions></TermsAndConditions>,
+      },
+      {
+        path: "/fiction",
+        element: <Friction></Friction>,
+      },
+      {
+        path: "/nonficton",
+        element: <NonFriction></NonFriction>,
+      },
+      {
+        path: "/fantacy",
+        element: <Fantacy></Fantacy>,
       },
     ],
   },

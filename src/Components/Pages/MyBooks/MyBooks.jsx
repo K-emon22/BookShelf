@@ -15,41 +15,57 @@ import {Link} from "react-router";
 
 const MyBooks = () => {
   const [bookIds, setBookIds] = useState(null);
-
+  const [lod, setLod] = useState(true);
   useEffect(() => {
     window.scrollTo({top: 0, behavior: "smooth"});
   });
   const {user} = useContext(AuthContext);
   console.log(user);
-
+  const accessToken = user?.accessToken;
+  const email = user?.email;
   const [addedBook, setAddedBook] = useState([]);
 
-  const [lod, setLod] = useState(true);
-  useEffect(() => {
-    setTimeout(() => {
-      setLod(false);
-    }, 500);
-  });
   useEffect(() => {
     window.scrollTo({top: 0, behavior: "smooth"});
   });
 
   useEffect(() => {
+    if (!user || !accessToken || !email) return;
     axios
-      .get("https://vercel-backend-for-bookshelf.vercel.app/allBooks")
+      .get(
+        `https://vercel-backend-for-bookshelf.vercel.app/userBook?email=${user.email}`,
+        {
+          headers: {
+            authorization: `Bearer ${accessToken}`,
+          },
+        }
+      )
       .then((res) => {
-        console.log(res.data);
-        const userBooks = res.data.filter(
-          (userBook) => userBook.user.email === user?.email
-        );
-        setAddedBook(userBooks);
+        setLod(false);
+        console.log(res.data.message);
+
+        setAddedBook(res.data.myBook);
       });
-  }, [user?.email]);
+  }, [user, accessToken, email]);
   console.log(addedBook);
 
   const handleUpvote = (id) => {
     if (!user) {
       toast.warning("Please log in to upvote.", {
+        autoClose: 1000,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+      return;
+    }
+
+    const addedEmail = addedBook.find(
+      (book) => book.user.email === user?.email
+    );
+
+    if (addedEmail) {
+      toast.warning("User cant upvote his own book.", {
         autoClose: 1000,
         closeOnClick: true,
         pauseOnHover: true,
@@ -159,17 +175,17 @@ const MyBooks = () => {
           `https://vercel-backend-for-bookshelf.vercel.app/allBooks/${bookIds}`,
           book
         )
-        .then(() => {
+        .then((res) => {
           document.getElementById("my_modal_4").checked = false;
+          const updatedBook = res.data;
+          setAddedBook((prev) =>
+            prev.map((b) => (b._id === updatedBook._id ? updatedBook : b))
+          );
           Swal.fire({
             title: "Success!",
             text: "Book Updated successfully!",
             icon: "success",
             confirmButtonText: "OK",
-          }).then((result) => {
-            if (result.isConfirmed) {
-              window.location.reload();
-            }
           });
         });
     }

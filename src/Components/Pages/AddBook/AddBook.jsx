@@ -56,12 +56,24 @@ const AddBook = () => {
       upvote: parseInt(form.upvote.value),
     };
 
+    if (!user) {
+      return;
+    }
     axios
-      .post("https://vercel-backend-for-bookshelf.vercel.app/allBooks", book)
+      .post(
+        `https://vercel-backend-for-bookshelf.vercel.app/allBooks?email=${user?.email}`,
+        book,
+        {
+          headers: {
+            Authorization: `Bearer ${user?.accessToken}`,
+          },
+        }
+      )
+      .then((res) => console.log(res.data.message))
       .then(() => {
         form.reset();
-        setCategory('')
-        setStatus('')
+        setCategory("");
+        setStatus("");
         Swal.fire({
           title: "Success!",
           text: "Book added successfully!",
@@ -105,7 +117,6 @@ const AddBook = () => {
           onSubmit={handleAddBook}
           className="w-3/4 sm:w-2/3 md:w-3/5 lg:w-2/5 flex flex-col justify-center items-center p-4 shadow-lg rounded-lg bg-blue-600/20 shadow-black  backdrop-blur-sm"
         >
-         
           <input
             type="text"
             name="bookName"
@@ -114,7 +125,7 @@ const AddBook = () => {
             required
           />{" "}
           <br />
-           <input
+          <input
             type="text"
             name="authorName"
             className=" p-2   border-2 w-full  rounded-lg  bg-white/80"

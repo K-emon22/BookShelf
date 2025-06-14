@@ -3,14 +3,14 @@ import {Fade} from "react-awesome-reveal";
 
 const NewsSection = () => {
   return (
-    <div>
-      <section className="bg-slate-50 py-16">
+    <div className="mx-[2%] lg:mx-[5%]">
+      <section className="bg-slate-50 py-16 rounded-lg shadow-sm shadow-black/30">
         <div className="container mx-auto px-6">
           <div className="text-center mb-12">
             <Fade direction="up" cascade duration={800} triggerOnce={false}>
               <div className="">
                 <h1 className="text-3xl sm:text-5xl font-bold  mb-10">
-                  Laatest Book News
+                  Latest Book News
                 </h1>
               </div>
             </Fade>
