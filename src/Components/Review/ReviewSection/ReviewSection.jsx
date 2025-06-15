@@ -62,8 +62,6 @@ const ReviewSection = ({book}) => {
         <div>
           {user && (
             <div className="flex justify-center mb-10 hover:scale-110 transition-transform">
-             
-
               <AddReview
                 book={book}
                 hasUserReviewed={hasUserReviewed}
@@ -110,7 +108,7 @@ const ReviewSection = ({book}) => {
                           <EditReview
                             book={book}
                             refreshReviews={fetchReviews}
-                             fetchReviews={fetchReviews}
+                            fetchReviews={fetchReviews}
                           />
                         </div>
 

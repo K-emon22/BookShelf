@@ -19,7 +19,10 @@ const AddBook = () => {
   const [category, setCategory] = useState("");
   const [status, setStatus] = useState("");
 
-  const handleAddBook = (e) => {
+  const email = user?.email;
+  const token = user?.accessToken;
+
+  const handleAddBook = async (e) => {
     e.preventDefault();
 
     if (!category) {
@@ -59,13 +62,14 @@ const AddBook = () => {
     if (!user) {
       return;
     }
+
     axios
       .post(
-        `https://vercel-backend-for-bookshelf.vercel.app/allBooks?email=${user?.email}`,
+        `https://vercel-backend-for-bookshelf.vercel.app/allBooks?email=${email}`,
         book,
         {
           headers: {
-            Authorization: `Bearer ${user?.accessToken}`,
+            Authorization: `Bearer ${token}`,
           },
         }
       )

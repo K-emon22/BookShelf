@@ -26,10 +26,6 @@ const MyBooks = () => {
   const [addedBook, setAddedBook] = useState([]);
 
   useEffect(() => {
-    window.scrollTo({top: 0, behavior: "smooth"});
-  });
-
-  useEffect(() => {
     if (!user || !accessToken || !email) return;
     axios
       .get(
@@ -99,6 +95,33 @@ const MyBooks = () => {
 
   const bookId = (id) => {
     setBookIds(id);
+  };
+
+  const handleChangeStatus = (bookId, newStatus) => {
+    axios
+      .patch(
+        `https://vercel-backend-for-bookshelf.vercel.app/bookDetails/${bookId}`,
+        {
+          reading_status: newStatus,
+        }
+      )
+      .then((res) => {
+        const updated = res.data;
+        setAddedBook((prev) =>
+          prev.map((book) =>
+            book._id === updated._id
+              ? {...book, reading_status: updated.reading_status}
+              : book
+          )
+        );
+        toast.success("Reading status updated", {
+          autoClose: 1000,
+        });
+      })
+      .catch((err) => {
+        console.error("Status update error:", err);
+        toast.error("Failed to update status");
+      });
   };
 
   const [category, setCategory] = useState("");
@@ -226,7 +249,7 @@ const MyBooks = () => {
                 className="flex flex-col justify-center items-center
                "
               >
-                <h1 className="text-3xl sm:text-5xl font-bold  mx-auto">
+                <h1 className="text-3xl sm:text-5xl font-bold text-center p-5 mx-auto">
                   You didn’t add any book yet.
                 </h1>
                 <Link
@@ -244,13 +267,14 @@ const MyBooks = () => {
             {addedBook.map((userSingleBook) => (
               <div key={userSingleBook._id}>
                 <div className="md:max-w-4xl mx-auto p-6 mt-4">
-                  <div className="bg-white shadow-lg rounded-lg overflow-hidden flex flex-col md:flex-row">
+                  <div className="bg-gray-100 shadow-lg rounded-lg overflow-hidden flex flex-col md:flex-row">
                     <img
                       src={userSingleBook.cover_photo}
                       alt={userSingleBook.book_title}
-                      className="w-full aspect-[3/4] md:w-2/5 object-cove sm:py-10 md:py-0 m-1 rounded-md"
+                      className=" w-2/3 lg:w-[500px] sm:h-[500px] rounded-lg sm:w-[300px] md:h-[500px] md:w-[400px]  lg:h-[600px] object-cove sm:py-10 md:py-0 m-1  flex justify-center items-center mx-auto"
                     />
-                    <div className="p-6 md:w-3/5">
+                    <hr className="border-dashed" />
+                    <div className="p-6 ">
                       <div className="flex flex-row">
                         <h1 className="text-3xl font-bold  my-auto">
                           {userSingleBook.book_title}
@@ -282,11 +306,42 @@ const MyBooks = () => {
                         <strong>Total Pages:</strong>{" "}
                         {userSingleBook.total_page}
                       </p>
-                      <p className="text-gray-700 mb-1">
-                        <strong>Reading Status:</strong>{" "}
-                        {userSingleBook.reading_status}
-                      </p>
-                      <p className="text-gray-700 mb-4">
+
+                      <div className="flex flex-row items-center gap-2 mb-2">
+                        <strong className="my-auto text-gray-700">
+                          Reading Status:
+                        </strong>
+                        <select
+                          className="border border-gray-300 px-2 py-1 rounded"
+                          value={userSingleBook.reading_status}
+                          onChange={(e) =>
+                            handleChangeStatus(
+                              userSingleBook._id,
+                              e.target.value
+                            )
+                          }
+                        >
+                          {userSingleBook.reading_status === "Want to Read" && (
+                            <>
+                              <option value="Want to Read">Want to Read</option>
+                              <option value="Reading">Reading</option>
+                            </>
+                          )}
+
+                          {userSingleBook.reading_status === "Reading" && (
+                            <>
+                              <option value="Reading">Reading</option>
+                              <option value="Read">Read</option>
+                            </>
+                          )}
+
+                          {userSingleBook.reading_status === "Read" && (
+                            <option value="Read">Read</option>
+                          )}
+                        </select>
+                      </div>
+
+                      <p className="text-gray-700 mb-4 text-justify">
                         <strong>Overview:</strong>{" "}
                         {userSingleBook.book_overview}
                       </p>

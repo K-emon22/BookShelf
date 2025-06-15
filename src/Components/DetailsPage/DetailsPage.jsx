@@ -9,7 +9,7 @@ import {GrLike} from "react-icons/gr";
 
 import ReviewSection from "../Review/ReviewSection/ReviewSection";
 import {AuthContext} from "../ContextFiles/AuthContext";
-import { toast } from "react-toastify";
+import {toast} from "react-toastify";
 const DetailsPage = () => {
   useEffect(() => {
     window.scrollTo({
@@ -36,13 +36,12 @@ const DetailsPage = () => {
   const handleUpvote = () => {
     if (book.user.email === user.email) {
       toast.error("User can not upvote his own book.", {
-              autoClose: 1000,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-            });
+        autoClose: 1000,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
       return;
-
     }
     axios
       .patch(`https://vercel-backend-for-bookshelf.vercel.app/upvote/${id}`)
@@ -66,7 +65,12 @@ const DetailsPage = () => {
         `https://vercel-backend-for-bookshelf.vercel.app/bookDetails/${id}`,
         {reading_status: newStatus}
       )
-      .then((res) => setBook(res.data));
+      .then((res) => setBook(res.data))
+      .then(() => {
+        toast.success("Reading status updated", {
+          autoClose: 1000,
+        });
+      });
   };
 
   if (!book) {
