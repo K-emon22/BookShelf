@@ -16,8 +16,6 @@ const HomePage = () => {
     }, 500);
   }, []);
 
-  
-
   if (loding1) {
     return <Loder></Loder>;
   }

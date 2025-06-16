@@ -20,7 +20,7 @@ const MyBooks = () => {
     window.scrollTo({top: 0, behavior: "smooth"});
   });
   const {user} = useContext(AuthContext);
-  console.log(user);
+
   const accessToken = user?.accessToken;
   const email = user?.email;
   const [addedBook, setAddedBook] = useState([]);
@@ -38,12 +38,10 @@ const MyBooks = () => {
       )
       .then((res) => {
         setLod(false);
-        console.log(res.data.message);
 
         setAddedBook(res.data.myBook);
       });
   }, [user, accessToken, email]);
-  console.log(addedBook);
 
   const handleUpvote = (id) => {
     if (!user) {
@@ -84,7 +82,6 @@ const MyBooks = () => {
   };
 
   const handleDelete = (id) => {
-    console.log("delete");
     axios
       .delete(`https://vercel-backend-for-bookshelf.vercel.app/allBooks/${id}`)
       .then(() => {
@@ -152,8 +149,6 @@ const MyBooks = () => {
     }
   }, [bookIds]);
 
-  console.log(bookIds);
-
   const handleUpdateBook = (e) => {
     e.preventDefault();
 
@@ -212,8 +207,6 @@ const MyBooks = () => {
           });
         });
     }
-
-    console.log(book);
   };
 
   if (lod) {

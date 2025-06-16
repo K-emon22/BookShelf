@@ -17,6 +17,7 @@ import PrivateRoute from "../Components/ContextFiles/PrivateRoute";
 import Friction from "../Components/Pages/Home/FeatureCAtegorySorted/Friction";
 import NonFriction from "../Components/Pages/Home/FeatureCAtegorySorted/NonFriction";
 import Fantacy from "../Components/Pages/Home/FeatureCAtegorySorted/Fantacy";
+import About from "../Components/Pages/About/About";
 
 export const Routes = createBrowserRouter([
   {
@@ -83,6 +84,10 @@ export const Routes = createBrowserRouter([
       {
         path: "/fantacy",
         element: <Fantacy></Fantacy>,
+      },
+      {
+        path: "/about",
+        element: <About></About>,
       },
     ],
   },

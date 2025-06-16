@@ -17,7 +17,7 @@ const Register = () => {
     const email = e.target.email.value;
     const photo = e.target.photo.value;
     const password = e.target.password.value;
-    console.log(name, email, photo, password);
+
 
     if (password.length < 6) {
       toast.error("Password must be at least 6 characters long.", {
@@ -158,7 +158,7 @@ const Register = () => {
             type="text"
             name="photo"
             className="border-2 border-blue-800 p-2 h-10 font-semibold rounded-lg md:w-full bg-white/40"
-            placeholder=" Enter Your Photo Url"
+            placeholder=" Enter Your Valid Photo Url"
             required
           />
           <br />

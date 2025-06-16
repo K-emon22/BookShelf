@@ -21,6 +21,7 @@ const DetailsPage = () => {
 
   const [book, setBook] = useState(null);
 
+
   const {id} = useParams();
 
   useEffect(() => {
@@ -76,7 +77,7 @@ const DetailsPage = () => {
   if (!book) {
     return <Loder></Loder>;
   }
-  console.log(book);
+
 
   return (
     <div className="mx-[2%] lg:mx-[5%]">
@@ -123,35 +124,45 @@ const DetailsPage = () => {
               <strong>Total Pages:</strong> {book.total_page}
             </p>
 
-            <div className="flex flex-row gap-2 mb-2">
-              <strong className="my-auto text-gray-700">
-                Reading Status:{" "}
-              </strong>
+            {book?.user?.email === user?.email ? (
+              <div className="flex flex-row gap-2 mb-2">
+                <strong className="my-auto text-gray-700">
+                  Reading Status:{" "}
+                </strong>
 
-              <select
-                className="border border-gray-300 px-2 py-1 rounded"
-                value={readingStatus}
-                onChange={readingStatusss}
-              >
-                {book.reading_status === "Want to Read" && (
-                  <>
-                    <option value="Want to Read">Want to Read</option>
-                    <option value="Reading">Reading</option>
-                  </>
-                )}
+                <select
+                  className="border border-gray-300 px-2 py-1 rounded"
+                  value={readingStatus}
+                  onChange={readingStatusss}
+                >
+                  {book.reading_status === "Want to Read" && (
+                    <>
+                      <option value="Want to Read">Want to Read</option>
+                      <option value="Reading">Reading</option>
+                    </>
+                  )}
 
-                {book.reading_status === "Reading" && (
-                  <>
-                    <option value="Reading">Reading</option>
+                  {book.reading_status === "Reading" && (
+                    <>
+                      <option value="Reading">Reading</option>
+                      <option value="Read">Read</option>
+                    </>
+                  )}
+
+                  {book.reading_status === "Read" && (
                     <option value="Read">Read</option>
-                  </>
-                )}
+                  )}
+                </select>
+              </div>
+            ) : (
+              <div className="flex flex-row gap-2 mb-2">
+                <strong className="my-auto text-gray-700">
+                  Reading Status:{" "}
+                </strong>
+                <span>{book.reading_status}</span>
+              </div>
+            )}
 
-                {book.reading_status === "Read" && (
-                  <option value="Read">Read</option>
-                )}
-              </select>
-            </div>
             <p className="text-gray-700 mb-4">
               <strong>Overview:</strong> {book.book_overview}
             </p>

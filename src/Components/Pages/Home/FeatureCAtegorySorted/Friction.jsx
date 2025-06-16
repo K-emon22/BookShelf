@@ -1,25 +1,4 @@
-// import axios from "axios";
-// import React, {useEffect, useState} from "react";
 
-// const Friction = () => {
-//   const [book, setBook] = useState([]);
-
-//   useEffect(() => {
-//     axios("https://vercel-backend-for-bookshelf.vercel.app/allBooks").then(
-//       (res) => {
-//         const fiction = res.data.find(
-//           (book) => book.book_category === "Fiction"
-//         );
-//         console.log(fiction);
-//         setBook(fiction);
-//       }
-//     );
-//   });
-
-//   return <div></div>;
-// };
-
-// export default Friction;
 import axios from "axios";
 import React, {useEffect, useState} from "react";
 import {Fade} from "react-awesome-reveal";

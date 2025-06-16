@@ -27,7 +27,7 @@ const SortedBook = () => {
     });
   }, []);
 
-  console.log(sorted);
+
 
   return (
     <div className="mb-10 mx-[2%] lg:mx-[5%]  p-5 rounded-lg shadow-md">

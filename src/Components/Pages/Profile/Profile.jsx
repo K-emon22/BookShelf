@@ -41,7 +41,7 @@ const Profile = () => {
   }, [user, accessToken, email]);
 
   const userBook = addedBook.filter((book) => book.user?.email === user?.email);
-  console.log(userBook);
+
 
   const Fantasy = addedBook.filter(
     (boo) => boo.book_category == "Fantasy" && boo.user?.email === user?.email
@@ -55,9 +55,9 @@ const Profile = () => {
     (boo) => boo.book_category == "Fiction" && boo.user?.email === user?.email
   );
 
-  console.log(Fantasy.length, NonFiction.length, Fiction.length);
 
-  console.log(addedBook);
+
+
 
   const data = [
     {

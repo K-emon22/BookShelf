@@ -11,7 +11,6 @@ const ReviewSection = ({book}) => {
   const [lodRev, setLodRev] = useState(true);
   const [review, setReview] = useState([]);
 
-  console.log(review);
   const bookReview = review.filter(
     (matchedBook) => matchedBook?.book_title === book?.book_title
   );

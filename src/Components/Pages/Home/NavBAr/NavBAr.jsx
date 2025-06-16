@@ -8,7 +8,6 @@ import Swal from "sweetalert2";
 const NavBAr = () => {
   const {user, loading} = useContext(AuthContext);
   const navigate = useNavigate();
-  console.log(user);
 
   const logOut = () => {
     signOut(Auth);
@@ -96,6 +95,22 @@ const NavBAr = () => {
           </>
         )}
       </NavLink>
+
+      <NavLink
+        to={"/about"}
+        className="relative px-2 py-1 font-semibold text-black overflow-hidden"
+      >
+        {({isActive}) => (
+          <>
+            <span
+              className={`absolute inset-0 bg-blue-500 z-0 transition-transform duration-500 ease-in-out ${
+                isActive ? "scale-x-100 " : "scale-x-0"
+              } origin-left rounded-lg`}
+            />
+            <span className="relative z-10 ">About</span>
+          </>
+        )}
+      </NavLink>
     </>
   );
   const button = (
@@ -146,10 +161,7 @@ const NavBAr = () => {
                   <div tabIndex={0} role="button">
                     <img
                       className="h-10 my-auto mt-1 rounded-full"
-                      src={
-                        user?.photoURL ||
-                        "https://i.ibb.co/gMjyVLT5/creative-book-logo-vector-design-10968791.png"
-                      }
+                      src={user?.photoURL}
                       alt=""
                       referrerPolicy="no-referrer"
                     />
@@ -210,7 +222,36 @@ const NavBAr = () => {
                 <div className="flex flex-col font-semibold space-y-1">
                   {pages}
                   {user ? (
-                    ""
+                    <div className="w-full">
+                      <hr className="mb-2" />
+                      <button
+                        onClick={() => {
+                          Swal.fire({
+                            title: "Are you sure You Want To Logout?",
+                            text: "You won’t be able to revert this!",
+                            icon: "warning",
+                            showCancelButton: true,
+                            confirmButtonColor: "#d33",
+                            cancelButtonColor: "#3085d6",
+                            confirmButtonText: "Yes, Logout",
+                          }).then((result) => {
+                            if (result.isConfirmed) {
+                              logOut();
+                              Swal.fire({
+                                title: "Logged Out!",
+                                text: "Successfully Logged Out.",
+                                icon: "success",
+                                showConfirmButton: true,
+                              });
+                            }
+                          });
+                        }}
+                        className="btnnnnn w-full"
+                      >
+                        {" "}
+                        Logout{" "}
+                      </button>
+                    </div>
                   ) : (
                     <div>
                       <hr className="mt-2" />

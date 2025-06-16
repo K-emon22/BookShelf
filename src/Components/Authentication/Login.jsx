@@ -64,7 +64,7 @@ const Login = () => {
         navigate(from, {replace: true});
       })
       .catch((err) => {
-        console.error(err);
+
 
         toast.error(err.message, {
           autoClose: 1000,

@@ -49,8 +49,6 @@ const Bookshelf = () => {
     setFilteredBooks(filtered);
   }, [category, searchTerm, allBooks]);
 
-  
-
   if (loading) {
     return <Loder></Loder>;
   }

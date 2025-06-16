@@ -14,7 +14,7 @@ const AddBook = () => {
   const [loding, setLoding] = useState(true);
 
   const {user} = useContext(AuthContext);
-  console.log(user);
+
 
   const [category, setCategory] = useState("");
   const [status, setStatus] = useState("");
@@ -73,7 +73,7 @@ const AddBook = () => {
           },
         }
       )
-      .then((res) => console.log(res.data.message))
+
       .then(() => {
         form.reset();
         setCategory("");
@@ -86,7 +86,7 @@ const AddBook = () => {
         });
       });
 
-    console.log(book);
+
   };
 
   useEffect(() => {
@@ -105,7 +105,7 @@ const AddBook = () => {
       animate={{opacity: 1, y: 0}}
       exit={{opacity: 0, y: -40}}
       transition={{duration: 1.2}}
-      className="mx-[2%] lg:mx-[5%] bg-center bg-cover pb-10"
+      className="mx-[2%] lg:mx-[5%] bg-center bg-cover pb-10 md:min-h-screen"
       style={{
         backgroundImage: "url('bookshop-animate.svg')",
       }}
@@ -116,7 +116,7 @@ const AddBook = () => {
         </h1>
       </Fade>
 
-      <div className="w-full flex flex-col justify-center items-center ">
+      <div className="w-full flex flex-col justify-center items-center md:min-h-[calc(100vh-200px)]">
         <form
           onSubmit={handleAddBook}
           className="w-3/4 sm:w-2/3 md:w-3/5 lg:w-2/5 flex flex-col justify-center items-center p-4 shadow-lg rounded-lg bg-blue-600/20 shadow-black  backdrop-blur-sm"
