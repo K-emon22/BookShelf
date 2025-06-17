@@ -1,8 +1,7 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 
 import {Link} from "react-router";
 import {motion} from "framer-motion";
-
 
 import Loder from "../Loder/Loder";
 
@@ -12,13 +11,13 @@ const Error = () => {
     behavior: "smooth",
   });
 
-const [loding,setLoding]=useState(true)
+  const [loding, setLoding] = useState(true);
 
-useEffect(()=>{
-setTimeout(() => {
-  setLoding(false)
-}, 500);
-},[])
+  useEffect(() => {
+    setTimeout(() => {
+      setLoding(false);
+    }, 500);
+  }, []);
   if (loding) {
     return <Loder></Loder>;
   }

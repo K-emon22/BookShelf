@@ -5,13 +5,12 @@ import {Fade} from "react-awesome-reveal";
 import {motion} from "framer-motion";
 import {GrLike} from "react-icons/gr";
 import {Link} from "react-router";
-import { AuthContext } from "../../../ContextFiles/AuthContext";
+import {AuthContext} from "../../../ContextFiles/AuthContext";
 
 const SortedBook = () => {
-  const {user}=useContext(AuthContext)
-  const token=user?.accessToken
+  const {user} = useContext(AuthContext);
+  const token = user?.accessToken;
 
-  
   const [sorted, setSorted] = useState([]);
 
   const [loding2, setLoding2] = useState(true);
@@ -26,8 +25,6 @@ const SortedBook = () => {
       setLoding2(false);
     });
   }, []);
-
-
 
   return (
     <div className="mb-10 mx-[2%] lg:mx-[5%]  p-5 rounded-lg shadow-md">

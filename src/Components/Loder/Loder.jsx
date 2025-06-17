@@ -13,7 +13,7 @@ const Loder = () => {
           ease: "linear",
         }}
       />
-      <p className="font-semibold">Loading ...</p>
+      <p className="font-semibold text-center">Loading ...</p>
     </div>
   );
 };

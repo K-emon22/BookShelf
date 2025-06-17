@@ -59,7 +59,7 @@ const MyBooks = () => {
     );
 
     if (addedEmail) {
-      toast.warning("User cant upvote his own book.", {
+      toast.warning("User can't upvote his own book.", {
         autoClose: 1000,
         closeOnClick: true,
         pauseOnHover: true,
@@ -69,7 +69,7 @@ const MyBooks = () => {
     }
 
     axios
-      .patch(`https://vercel-backend-for-bookshelf.vercel.app/upvote/${id}`)
+      .patch(`https://vercel-backend-for-bookshelf.vercel.app/upvote/${id}?`)
 
       .then((res) => {
         const updated = res.data;

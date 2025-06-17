@@ -128,7 +128,7 @@ const NavBAr = () => {
 
   return (
     <div className="sticky top-0 z-50   backdrop-blur-sm bg-blue-600/30">
-      <nav className="flex flex-row justify-between mb-10 pt-1 px-[2%] lg:px-[5%] border-b">
+      <nav className="flex flex-row justify-between mb-10 pt-1 px-[2%]  border-b">
         <div className="flex justify-between gap-2 mb-1">
           <div className="flex justify-center items-center">
             <img
@@ -144,7 +144,7 @@ const NavBAr = () => {
           </h1>
         </div>
         <div className="my-auto hidden [@media(min-width:850Px)]:block ">
-          <div className="flex gap-4  xl:gap-8 font-semibold mb-1.5">
+          <div className="flex gap-3 text-[12px]  xl:gap-8  lg:text-[16px] font-semibold mb-1.5">
             {pages}
           </div>
         </div>

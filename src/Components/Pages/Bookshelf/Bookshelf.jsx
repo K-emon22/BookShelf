@@ -12,7 +12,7 @@ const Bookshelf = () => {
   });
   const [allBooks, setAllBooks] = useState([]);
   const [filteredBooks, setFilteredBooks] = useState([]);
-  const [category, setCategory] = useState("");
+  const [readingStatus, setReadingStatus] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
 
@@ -29,25 +29,27 @@ const Bookshelf = () => {
       });
   }, []);
 
-  const handleChange = (e) => {
-    setCategory(e.target.value);
-  };
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
   };
 
   useEffect(() => {
     const lower = searchTerm.toLowerCase();
-    const filtered = allBooks.filter(
-      (book) =>
-        (!category ||
-          book?.book_category?.toLowerCase() === category.toLowerCase()) &&
-        (!searchTerm ||
-          book?.book_title?.toLowerCase().includes(lower) ||
-          book?.book_author?.toLowerCase().includes(lower))
-    );
+
+    const filtered = allBooks.filter((book) => {
+      const matchesSearch =
+        !searchTerm ||
+        book?.book_title?.toLowerCase().includes(lower) ||
+        book?.book_author?.toLowerCase().includes(lower);
+
+      const matchesReadingStatus =
+        !readingStatus || book?.reading_status === readingStatus;
+
+      return matchesSearch && matchesReadingStatus;
+    });
+
     setFilteredBooks(filtered);
-  }, [category, searchTerm, allBooks]);
+  }, [searchTerm, readingStatus, allBooks]);
 
   if (loading) {
     return <Loder></Loder>;
@@ -83,14 +85,14 @@ const Bookshelf = () => {
               </div>
             </div>
             <select
-              className="w-full h-[44px] md:w-[300px] px-4 py-2 border-2  border-blue-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-              value={category}
-              onChange={handleChange}
+              className="w-full h-[44px] md:w-[300px] px-4 py-2 border-2 border-blue-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+              value={readingStatus}
+              onChange={(e) => setReadingStatus(e.target.value)}
             >
-              <option value="">All Categories</option>
-              <option value="Fiction">Fiction</option>
-              <option value="Non-Fiction">Non-fiction</option>
-              <option value="Fantasy">Fantasy</option>
+              <option value="">All Books</option>
+              <option value="Read">Read</option>
+              <option value="Reading">Reading</option>
+              <option value="Want-to-Read">Want-to-Read</option>
             </select>
           </div>
         </div>
@@ -131,13 +133,22 @@ const Bookshelf = () => {
 
                   <div className="flex flex-row  mt-auto">
                     <h1 className="font-semibold text-[14px]">
-                      <span className="font-bold">By:</span> {sort.book_author}
+                      <span className="">By:</span> {sort.book_author}
                     </h1>
+
                     <h1 className="font-bold text-[10px]  text-blue-400 ml-auto bg-blue-100 px-2 border-blue-400 border rounded-full my-auto">
                       {sort.book_category}
                     </h1>
                   </div>
-                  <p className="line-clamp-3"> {sort.book_overview}</p>
+
+                  <div className="flex flex-row  mt-auto">
+                    <h1 className="font-semibold text-[14px]">
+                      <span className="font-semibold">Status:</span>{" "}
+                      {sort.reading_status}
+                    </h1>
+                  </div>
+
+                  <p className="line-clamp-3 "> {sort.book_overview}</p>
                 </div>
                 <div className="col-span-2">
                   <Fade direction="up" duration={800}>

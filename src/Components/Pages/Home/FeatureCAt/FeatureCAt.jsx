@@ -7,7 +7,7 @@ const FeatureCAt = () => {
       <Fade direction="up" cascade duration={800} triggerOnce={false}>
         <div className="">
           <h1 className="text-3xl sm:text-5xl font-bold  mb-10">
-            Book Categories
+            Featured Categories
           </h1>
         </div>
       </Fade>

@@ -68,7 +68,7 @@ const Footer = () => {
         className="flex justify-center items-center mt-4"
         to={"/terms&condition"}
       >
-        Terms & Condition
+        Terms & Conditions
       </Link>
       <p className="text-sm  mt-4 text-center">
         &copy; {new Date().getFullYear()} Bookshelf. All rights reserved.

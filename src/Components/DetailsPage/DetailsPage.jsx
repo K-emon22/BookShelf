@@ -21,7 +21,6 @@ const DetailsPage = () => {
 
   const [book, setBook] = useState(null);
 
-
   const {id} = useParams();
 
   useEffect(() => {
@@ -77,7 +76,6 @@ const DetailsPage = () => {
   if (!book) {
     return <Loder></Loder>;
   }
-
 
   return (
     <div className="mx-[2%] lg:mx-[5%]">
@@ -163,7 +161,7 @@ const DetailsPage = () => {
               </div>
             )}
 
-            <p className="text-gray-700 mb-4">
+            <p className="text-gray-700 mb-4 text-justify">
               <strong>Overview:</strong> {book.book_overview}
             </p>
             <div className="text-sm text-gray-600 mt-2 mb-4">
