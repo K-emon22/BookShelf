@@ -17,7 +17,7 @@
 ## 🚀 Key Features
 
 - 🔐 **Authentication**:
-  - Firebase Authentication (Email/Password + Google)
+  - Firebase Authentication (Email/Password + Google) 
   - JWT-based protected routes
 - 📚 **Bookshelf Management**:
   - Add/update/delete books
