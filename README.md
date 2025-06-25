@@ -2,9 +2,8 @@
 
 **Live Site**: [https://emons-bookshelf.netlify.app](https://emons-bookshelf.netlify.app/)
 
-**Client Repo**: [GitHub (Client)](https://github.com/Programming-Hero-Web-Course4/b11a11-client-side-K-emon22.git)
 
-**Server Repo**: [GitHub (Server)](https://github.com/Programming-Hero-Web-Course4/b11a11-server-side-K-emon22.git)
+**Server Repo**: [BookShelf Server](https://github.com/K-emon22/BookShelf-Server.git)
 
 ---
 
