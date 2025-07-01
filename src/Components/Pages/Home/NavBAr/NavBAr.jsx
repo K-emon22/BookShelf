@@ -48,53 +48,58 @@ const NavBAr = () => {
         )}
       </NavLink>
 
-      <NavLink
-        to={"/addBook"}
-        className="relative px-2 py-1 font-semibold text-black overflow-hidden"
-      >
-        {({isActive}) => (
-          <>
-            <span
-              className={`absolute inset-0 bg-blue-500 z-0 transition-transform duration-500 ease-in-out ${
-                isActive ? "scale-x-100" : "scale-x-0"
-              } origin-left rounded-lg`}
-            />
-            <span className="relative z-10">Add Book</span>
-          </>
-        )}
-      </NavLink>
+      {user && (
+        <NavLink
+          to={"/addBook"}
+          className="relative px-2 py-1 font-semibold text-black overflow-hidden"
+        >
+          {({isActive}) => (
+            <>
+              <span
+                className={`absolute inset-0 bg-blue-500 z-0 transition-transform duration-500 ease-in-out ${
+                  isActive ? "scale-x-100" : "scale-x-0"
+                } origin-left rounded-lg`}
+              />
+              <span className="relative z-10">Add Book</span>
+            </>
+          )}
+        </NavLink>
+      )}
 
-      <NavLink
-        to={"/myBooks"}
-        className="relative px-2 py-1 font-semibold text-black overflow-hidden"
-      >
-        {({isActive}) => (
-          <>
-            <span
-              className={`absolute inset-0 bg-blue-500 z-0 transition-transform duration-500 ease-in-out ${
-                isActive ? "scale-x-100" : "scale-x-0"
-              } origin-left rounded-lg`}
-            />
-            <span className="relative z-10">My Books</span>
-          </>
-        )}
-      </NavLink>
-
-      <NavLink
-        to={"/profile"}
-        className="relative px-2 py-1 font-semibold text-black overflow-hidden"
-      >
-        {({isActive}) => (
-          <>
-            <span
-              className={`absolute inset-0 bg-blue-500 z-0 transition-transform duration-500 ease-in-out ${
-                isActive ? "scale-x-100" : "scale-x-0"
-              } origin-left rounded-lg`}
-            />
-            <span className="relative z-10">Profile</span>
-          </>
-        )}
-      </NavLink>
+      {user && (
+        <NavLink
+          to={"/myBooks"}
+          className="relative px-2 py-1 font-semibold text-black overflow-hidden"
+        >
+          {({isActive}) => (
+            <>
+              <span
+                className={`absolute inset-0 bg-blue-500 z-0 transition-transform duration-500 ease-in-out ${
+                  isActive ? "scale-x-100" : "scale-x-0"
+                } origin-left rounded-lg`}
+              />
+              <span className="relative z-10">My Books</span>
+            </>
+          )}
+        </NavLink>
+      )}
+      {user && (
+        <NavLink
+          to={"/profile"}
+          className="relative px-2 py-1 font-semibold text-black overflow-hidden"
+        >
+          {({isActive}) => (
+            <>
+              <span
+                className={`absolute inset-0 bg-blue-500 z-0 transition-transform duration-500 ease-in-out ${
+                  isActive ? "scale-x-100" : "scale-x-0"
+                } origin-left rounded-lg`}
+              />
+              <span className="relative z-10">Profile</span>
+            </>
+          )}
+        </NavLink>
+      )}
 
       <NavLink
         to={"/about"}
@@ -119,16 +124,16 @@ const NavBAr = () => {
         {" "}
         <button className="btnn">Login </button>
       </Link>
-      <Link to={"/register"}>
+      {/* <Link to={"/register"}>
         {" "}
         <button className="btnn "> Register</button>
-      </Link>
+      </Link> */}
     </>
   );
 
   return (
-    <div className="sticky top-0 z-50   backdrop-blur-sm bg-blue-600/30">
-      <nav className="flex flex-row justify-between mb-10 pt-1 px-[2%]  border-b">
+    <div className="sticky top-0 z-50   backdrop-blur-sm bg-blue-600/30 ">
+      <nav className="flex flex-row justify-between mb-10 pt-1  px-[2%] lg:px-[5%] border-b">
         <div className="flex justify-between gap-2 mb-1">
           <div className="flex justify-center items-center">
             <img

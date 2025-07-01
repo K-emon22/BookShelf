@@ -69,12 +69,12 @@ const Bookshelf = () => {
             All Books
           </h1>
 
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4 p-4 bg-white rounded-xl shadow my-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 items-center justify-between gap-5 p-4 bg-white rounded-xl shadow my-4">
             <div className="flex flex-row w-full">
               <input
                 type="text"
                 placeholder="Search by book title or author..."
-                className=" w-full px-4 py-2 border-2 md:w-[300px] border-blue-400 border-r-0 rounded-lg rounded-r-none focus:outline-none focus:ring-0 "
+                className=" w-full px-4 py-2 border-2  border-blue-400 border-r-0 rounded-lg rounded-r-none focus:outline-none focus:ring-0 "
                 value={searchTerm}
                 onChange={handleSearchChange}
               />
@@ -85,7 +85,7 @@ const Bookshelf = () => {
               </div>
             </div>
             <select
-              className="w-full h-[44px] md:w-[300px] px-4 py-2 border-2 border-blue-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="w-full h-[44px]  px-4 py-2 border-2 border-blue-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
               value={readingStatus}
               onChange={(e) => setReadingStatus(e.target.value)}
             >
@@ -118,67 +118,77 @@ const Bookshelf = () => {
           </div>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5  ">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 md:grid-cols-3 gap-5  ">
           {filteredBooks.map((sort) => (
             <div key={sort._id}>
               <motion.div
                 whileHover={{
-                  boxShadow: "0px 0px 12px rgba(0, 0, 0, 0.2)",
+                  boxShadow: "0 8px 24px rgba(59, 130, 246, 0.25)",
                   scale: 1.02,
                 }}
-                className=" shadow-lg p-2 skeleton rounded-lg shadow-blue-100 grid grid-cols-5 gap-2 h-full "
+                className="shadow-md bg-white rounded-xl p-4 h-full flex flex-col justify-between border border-blue-100 transition-all duration-300"
               >
-                <div className="h-full flex flex-col col-span-3 gap-2">
-                  <h1 className=" font-bold">{sort.book_title}</h1>
-
-                  <div className="flex flex-row  mt-auto">
-                    <h1 className="font-semibold text-[14px]">
-                      <span className="">By:</span> {sort.book_author}
-                    </h1>
-
-                    <h1 className="font-bold text-[10px]  text-blue-400 ml-auto bg-blue-100 px-2 border-blue-400 border rounded-full my-auto">
-                      {sort.book_category}
-                    </h1>
+                <div className="relative w-[110px] md:w-[100px] aspect-[2/3] mx-auto flex justify-center items-center">
+                  <div className="absolute inset-0 blur-sm w-full opacity-100 rounded-lg overflow-hidden z-0">
+                    <img
+                      src={sort.cover_photo}
+                      alt=""
+                      className="object-cover w-full h-full"
+                    />
                   </div>
 
-                  <div className="flex flex-row  mt-auto">
-                    <h1 className="font-semibold text-[14px]">
-                      <span className="font-semibold">Status:</span>{" "}
-                      {sort.reading_status}
-                    </h1>
-                  </div>
-
-                  <p className="line-clamp-3 "> {sort.book_overview}</p>
-                </div>
-                <div className="col-span-2">
                   <Fade direction="up" duration={800}>
                     <img
-                      className=" aspect-[2/3] w-[110px] md:w-[100px] rounded-md  mx-auto shadow"
+                      className="w-full h-full rounded-md shadow-lg border border-blue-200 relative z-10 object-cover"
                       src={sort.cover_photo}
                       alt=""
                     />
                   </Fade>
                 </div>
-                <div className="w-full col-span-5 mt-auto flex flex-row justify-between">
+
+                <div className="mt-4 flex-1 flex flex-col gap-2">
+                  <h2 className="text-lg font-semibold text-blue-600 line-clamp-1">
+                    {sort.book_title}
+                  </h2>
+                  <p className="text-sm text-gray-600 line-clamp-3">
+                    {sort.book_overview}
+                  </p>
+
+                  <div className="mt-auto space-y-1 text-sm text-gray-700">
+                    <p>
+                      <span className="font-medium">By:</span>{" "}
+                      {sort.book_author}
+                    </p>
+                    <p>
+                      <span className="font-medium">Status:</span>{" "}
+                      {sort.reading_status}
+                    </p>
+                    <span className="inline-block text-xs bg-blue-100 text-blue-500 border border-blue-400 px-2 py-1 rounded-full font-medium">
+                      {sort.book_category}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="mt-4 flex items-center justify-between">
                   <Fade direction="right" duration={800}>
                     <Link to={`/bookDetails/${sort._id}`}>
-                      <button className=" btnnnn mt-5">View Details</button>
+                      <button className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white text-sm rounded-md font-semibold transition">
+                        View Details
+                      </button>
                     </Link>
                   </Fade>
 
-                  <Fade delay={500}>
-                    <h1 className="font-bold flex flex-row gap-1 my-auto mt-7 px-3 border border-blue-400 rounded-full">
-                      <span className="my-auto">
-                        <GrLike />
-                      </span>{" "}
+                  <Fade delay={300}>
+                    <div className="flex items-center text-blue-500 font-semibold text-sm gap-1 border border-blue-400 px-3 py-1 rounded-full">
+                      <GrLike className="text-blue-500" />
                       <motion.span
-                        animate={{scale: [1, 1.1, 1]}}
-                        transition={{repeat: Infinity, duration: 1.2}}
-                        className="text-blue-400 my-auto"
+                        animate={{scale: [1, 1.2, 1]}}
+                        transition={{repeat: Infinity, duration: 1.5}}
+                        className="text-blue-600"
                       >
                         {sort.upvote}
                       </motion.span>
-                    </h1>
+                    </div>
                   </Fade>
                 </div>
               </motion.div>

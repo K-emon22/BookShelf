@@ -11,7 +11,7 @@ import {AuthContext} from "../../ContextFiles/AuthContext";
 import {toast} from "react-toastify";
 import Loder from "../../Loder/Loder";
 import {Fade} from "react-awesome-reveal";
-import {Link} from "react-router";
+import {Link, useNavigate} from "react-router";
 
 const MyBooks = () => {
   const [bookIds, setBookIds] = useState(null);
@@ -24,7 +24,7 @@ const MyBooks = () => {
   const accessToken = user?.accessToken;
   const email = user?.email;
   const [addedBook, setAddedBook] = useState([]);
-
+  const navigate = useNavigate();
   useEffect(() => {
     if (!user || !accessToken || !email) return;
     axios
@@ -256,143 +256,133 @@ const MyBooks = () => {
             </Fade>
           </div>
         ) : (
-          <div>
-            {addedBook.map((userSingleBook) => (
-              <div key={userSingleBook._id}>
-                <div className="md:max-w-4xl mx-auto p-6 mt-4">
-                  <div className="bg-gray-100 shadow-lg rounded-lg overflow-hidden flex flex-col md:flex-row">
-                    <img
-                      src={userSingleBook.cover_photo}
-                      alt={userSingleBook.book_title}
-                      className=" w-2/3 lg:w-[500px] sm:h-[500px] rounded-lg sm:w-[300px] md:h-[500px] md:w-[400px]  lg:h-[600px] object-cove sm:py-10 md:py-0 m-1  flex justify-center items-center mx-auto"
-                    />
-                    <hr className="border-dashed" />
-                    <div className="p-6 ">
-                      <div className="flex flex-row">
-                        <h1 className="text-3xl font-bold  my-auto">
-                          {userSingleBook.book_title}
-                        </h1>
-                        <h1
-                          onClick={() => handleUpvote(userSingleBook._id)}
-                          className="font-bold flex flex-row border-2 px-3 rounded-full border-blue-400 my-auto  ml-auto text-xl gap-2"
-                        >
-                          <span className="my-auto hover:text-blue-600 cursor-pointer hover:scale-105 transition-transform">
-                            <GrLike />
-                          </span>
-                          <motion.span
-                            animate={{scale: [1, 1.1, 1]}}
-                            transition={{repeat: Infinity, duration: 1.2}}
-                            className="text-blue-400"
-                          >
-                            {userSingleBook.upvote}
-                          </motion.span>
-                        </h1>
-                      </div>
-                      <p className="text-gray-700 mb-1">
-                        <strong>By:</strong> {userSingleBook.book_author}
-                      </p>
-                      <p className="text-gray-700 mb-1">
-                        <strong>Category:</strong>{" "}
-                        {userSingleBook.book_category}
-                      </p>
-                      <p className="text-gray-700 mb-1">
-                        <strong>Total Pages:</strong>{" "}
-                        {userSingleBook.total_page}
-                      </p>
-
-                      <div className="flex flex-row items-center gap-2 mb-2">
-                        <strong className="my-auto text-gray-700">
-                          Reading Status:
-                        </strong>
-                        <select
-                          className="border border-gray-300 px-2 py-1 rounded"
-                          value={userSingleBook.reading_status}
-                          onChange={(e) =>
-                            handleChangeStatus(
-                              userSingleBook._id,
-                              e.target.value
-                            )
-                          }
-                        >
-                          {userSingleBook.reading_status === "Want to Read" && (
-                            <>
-                              <option value="Want to Read">Want to Read</option>
-                              <option value="Reading">Reading</option>
-                            </>
-                          )}
-
-                          {userSingleBook.reading_status === "Reading" && (
-                            <>
-                              <option value="Reading">Reading</option>
-                              <option value="Read">Read</option>
-                            </>
-                          )}
-
-                          {userSingleBook.reading_status === "Read" && (
-                            <option value="Read">Read</option>
-                          )}
-                        </select>
-                      </div>
-
-                      <p className="text-gray-700 mb-4 text-justify">
-                        <strong>Overview:</strong>{" "}
-                        {userSingleBook.book_overview}
-                      </p>
-                      <div className="text-sm text-gray-600 mt-2 mb-4">
-                        <p>
-                          <strong>Submitted by:</strong>{" "}
-                          {userSingleBook.user?.name} (
-                          {userSingleBook.user?.email})
-                        </p>
-                      </div>
-
-                      <div className="flex flex-row justify-between">
-                        <button
-                          onClick={() => {
-                            bookId(userSingleBook._id);
-                            openModal();
-                          }}
-                          className="btnnnn"
-                        >
-                          {" "}
-                          Update
-                        </button>
-
-                        <button
-                          onClick={() => {
-                            Swal.fire({
-                              title: "Are you sure?",
-                              text: "You won’t be able to revert this!",
-                              icon: "warning",
-                              showCancelButton: true,
-                              confirmButtonColor: "#d33",
-                              cancelButtonColor: "#3085d6",
-                              confirmButtonText: "Yes, delete it!",
-                            }).then((result) => {
-                              if (result.isConfirmed) {
-                                handleDelete(userSingleBook._id);
-
-                                Swal.fire({
-                                  title: "Deleted!",
-                                  text: "Your review has been deleted.",
-                                  icon: "success",
-
-                                  showConfirmButton: true,
-                                });
-                              }
-                            });
-                          }}
-                          className="btn font-bold text-white bg-red-600 rounded-lg"
-                        >
-                          Delete
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+         <div className="overflow-x-auto p-4 w-full">
+  <table className="table-fixed min-w-[1200px] border text-sm">
+    <thead className="bg-gray-200 text-gray-700">
+      <tr>
+        <th className="p-2 border w-[100px]">Cover</th>
+        <th className="p-2 border w-[250px]">Title</th>
+        <th className="p-2 border w-[200px]">Author</th>
+        <th className="p-2 border w-[150px]">Category</th>
+        <th className="p-2 border w-[80px]">Pages</th>
+        <th className="p-2 border w-[200px]">Status</th>
+        <th className="p-2 border w-[350px]">Overview</th>
+        <th className="p-2 border w-[80px]">
+          <GrLike className="mx-auto" />
+        </th>
+        <th className="p-2 border w-[160px]">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {addedBook.map((book) => (
+        <tr key={book._id} className="text-center">
+          <td className="border p-2 w-[100px]">
+            <img
+              src={book.cover_photo}
+              alt={book.book_title}
+              className="h-28 w-20 object-cover mx-auto rounded"
+            />
+          </td>
+          <td className="border p-2 w-[250px] font-semibold truncate">
+            {book.book_title}
+          </td>
+          <td className="border p-2 w-[200px] truncate">
+            {book.book_author}
+          </td>
+          <td className="border p-2 w-[150px]">
+            {book.book_category}
+          </td>
+          <td className="border p-2 w-[80px]">{book.total_page}</td>
+          <td className="border p-2 w-[200px]">
+            <select
+              className="border border-gray-300 px-2 py-1 rounded w-full"
+              value={book.reading_status}
+              onChange={(e) =>
+                handleChangeStatus(book._id, e.target.value)
+              }
+            >
+              {book.reading_status === "Want to Read" && (
+                <>
+                  <option value="Want to Read">Want to Read</option>
+                  <option value="Reading">Reading</option>
+                </>
+              )}
+              {book.reading_status === "Reading" && (
+                <>
+                  <option value="Reading">Reading</option>
+                  <option value="Read">Read</option>
+                </>
+              )}
+              {book.reading_status === "Read" && (
+                <option value="Read">Read</option>
+              )}
+            </select>
+          </td>
+          <td className="border p-2 text-justify w-[350px]">
+            {book.book_overview?.slice(0, 100)}...
+          </td>
+          <td className="border p-2 w-[80px]">
+            <button
+              onClick={() => handleUpvote(book._id)}
+              className="flex items-center gap-1 text-blue-500 hover:text-blue-700 mx-auto"
+            >
+              <motion.span
+                animate={{ scale: [1, 1.2, 1] }}
+                transition={{ repeat: Infinity, duration: 1.5 }}
+              >
+                {book.upvote}
+              </motion.span>
+            </button>
+          </td>
+          <td className="border p-2 w-[160px] h-20">
+            <div className="flex flex-col justify-between h-full gap-1">
+              <button
+                onClick={() => navigate(`/bookDetails/${book._id}`)}
+                className="bg-green-500 text-white px-2 py-1 rounded hover:bg-green-600 w-full"
+              >
+                Details
+              </button>
+              <button
+                onClick={() => {
+                  bookId(book._id);
+                  openModal();
+                }}
+                className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600 w-full"
+              >
+                Update
+              </button>
+              <button
+                onClick={() => {
+                  Swal.fire({
+                    title: "Are you sure?",
+                    text: "You won’t be able to revert this!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#d33",
+                    cancelButtonColor: "#3085d6",
+                    confirmButtonText: "Yes, delete it!",
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                      handleDelete(book._id);
+                      Swal.fire(
+                        "Deleted!",
+                        "Your review has been deleted.",
+                        "success"
+                      );
+                    }
+                  });
+                }}
+                className="bg-red-600 text-white px-2 py-1 rounded hover:bg-red-700 w-full"
+              >
+                Delete
+              </button>
+            </div>
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
         )}
       </div>
 
