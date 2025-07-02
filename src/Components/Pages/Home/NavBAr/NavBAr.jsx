@@ -173,9 +173,9 @@ const NavBAr = () => {
         </div>
 
 
-        <div className="flex flex-row gap-3 items-center">
+        <div className="flex flex-row gap-3 items-center mb-1">
 
-          <div className="hidden [@media(min-width:850px)]:block">
+          <div className="hidden [@media(min-width:850px)]:block my-1">
             <select
               value={currentTheme}
               onChange={(e) => changeTheme(e.target.value)}
@@ -199,14 +199,14 @@ const NavBAr = () => {
             </select>
           </div>
           {loading ? (
-            <span className="loading h-[50px] w-[40px] loading-ring "></span>
+            <span className="loading h-[50px] w-[40px] loading-ring my-auto "></span>
           ) : (
             <>
               {user ? (
-                <div className="dropdown dropdown-end">
-                  <div tabIndex={0} role="button">
+                <div className="dropdown dropdown-end ">
+                  <div tabIndex={0} role="button ">
                     <img
-                      className="h-10 my-auto mt-1 rounded-full"
+                      className="h-10 my-auto  rounded-full"
                       src={user?.photoURL}
                       alt=""
                       referrerPolicy="no-referrer"
@@ -255,7 +255,7 @@ const NavBAr = () => {
             </>
           )}
 
-          {/* Mobile Dropdown */}
+
           <div className="[@media(min-width:850px)]:hidden my-auto">
             <div className="dropdown dropdown-end">
               <div tabIndex={0} role="button" className="m-1">
@@ -275,7 +275,7 @@ const NavBAr = () => {
                     <select
                       value={currentTheme}
                       onChange={(e) => changeTheme(e.target.value)}
-                      className="select select-bordered w-full max-w-xs"
+                      className="select select-bordered w-full max-w-xs "
                     >
                       <option value="light">🌞 Light</option>
                       <option value="dark">🌙 Dark</option>
