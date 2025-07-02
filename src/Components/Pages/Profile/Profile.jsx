@@ -116,7 +116,7 @@ const Profile = () => {
       <div className="sm:mt-10 mt-20">
         <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
           <div className="p-5 flex justify-between items-center">
-            <h1 className="text-lg font-semibold text-gray-800">
+            <h1 className="text-lg font-semibold text-white">
               Total Added Books
             </h1>
             <span className="bg-blue-100 text-blue-600 font-bold text-xl py-1 px-3.5 rounded-full">
@@ -130,19 +130,19 @@ const Profile = () => {
             <ul className="space-y-4">
               <li className="flex justify-between items-center text-base">
                 <span className="text-gray-600">Total Fantasy Book</span>
-                <span className="font-semibold text-gray-900 bg-gray-100 py-1 px-3 rounded-md">
+                <span className="font-semibold text-gray-500 bg-gray-100 py-1 px-3 rounded-md">
                   {Fantasy.length}
                 </span>
               </li>
               <li className="flex justify-between items-center text-base">
                 <span className="text-gray-600">Total Non-Fiction Book</span>
-                <span className="font-semibold text-gray-900 bg-gray-100 py-1 px-3 rounded-md">
+                <span className="font-semibold text-gray-500 bg-gray-100 py-1 px-3 rounded-md">
                   {NonFiction.length}
                 </span>
               </li>
               <li className="flex justify-between items-center text-base">
                 <span className="text-gray-600">Total Fiction Book</span>
-                <span className="font-semibold text-gray-900 bg-gray-100 py-1 px-3 rounded-md">
+                <span className="font-semibold text-gray-500 bg-gray-100 py-1 px-3 rounded-md">
                   {Fiction.length}
                 </span>
               </li>

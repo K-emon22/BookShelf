@@ -19,6 +19,11 @@ const AddReview = ({
       closeOnClick: true,
       pauseOnHover: true,
       draggable: true,
+      
+      style: {
+        color: "#111827",
+        background: "black",
+      },
     });
   };
 

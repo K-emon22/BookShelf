@@ -33,6 +33,9 @@ const Login = () => {
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
+        style: {
+          background: "#fecaca",
+        },
       });
 
       return;
@@ -43,6 +46,9 @@ const Login = () => {
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
+        style: {
+          background: "#fecaca",
+        },
       });
 
       return;
@@ -53,6 +59,9 @@ const Login = () => {
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
+        style: {
+          background: "#fecaca",
+        },
       });
 
       return;
@@ -64,13 +73,14 @@ const Login = () => {
         navigate(from, {replace: true});
       })
       .catch((err) => {
-
-
         toast.error(err.message, {
           autoClose: 1000,
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
+          style: {
+            background: "#fecaca",
+          },
         });
       });
   };
@@ -92,7 +102,7 @@ const Login = () => {
       }}
     >
       <Fade direction="down" cascade duration={800}>
-        <h1 className="text-3xl sm:text-5xl font-bold text-center">
+        <h1 className="text-3xl sm:text-5xl font-bold text-center text-blue-600">
           Ready to{" "}
           <span style={{color: "blue", fontWeight: "bold"}}>
             <Typewriter
@@ -113,13 +123,13 @@ const Login = () => {
       <div className="flex justify-center items-center min-h-[calc(100vh-100px)]">
         <form
           onSubmit={loginWithPassword}
-          className="flex flex-col justify-center items-center backdrop-blur-sm bg-blue-600/20 py-8 px-5 rounded-lg shadow shadow-black  md:gap-2  md:w-[400px]  "
+          className="flex flex-col justify-center items-center backdrop-blur-sm bg-blue-100/30 dark:bg-blue-900/20 py-8 px-5 rounded-lg shadow shadow-blue-300 dark:shadow-blue-800 md:gap-2 md:w-[400px]"
         >
           <input
             type="email"
             name="email"
-            className="border-2 border-blue-600 p-2 h-10 font-semibold rounded-lg md:w-full bg-white/40"
-            placeholder=" Enter Your email"
+            className="border-2 border-blue-400 p-2 h-10 font-semibold rounded-lg md:w-full bg-blue-50/60 dark:bg-blue-800/40 text-black dark:text-white placeholder:text-white"
+            placeholder="Enter Your Email"
             required
           />
           <br />
@@ -127,36 +137,35 @@ const Login = () => {
           <input
             type="password"
             name="password"
-            className="border-2 border-blue-600 p-2 h-10 font-semibold rounded-lg md:w-full bg-white/40"
-            placeholder=" Enter Your Password"
+            className="border-2 border-blue-400 p-2 h-10 font-semibold rounded-lg md:w-full bg-blue-50/60 dark:bg-blue-800/40 text-black dark:text-white placeholder:text-white"
+            placeholder="Enter Your Password"
             required
           />
 
           <button
             onClick={loginWithGoogle}
             type="button"
-            className=" flex flex-row justify-center items-center gap-2 hover:bg-blue-500 hover:text-white cursor-pointer mt-8 font-bold border-2 w-[206.5px] md:w-full bg-[#F5F5F5]   h-10 my-auto rounded-full mb-2"
+            className="flex flex-row justify-center items-center gap-2 hover:bg-blue-500 hover:text-white cursor-pointer mt-8 font-bold border-2 border-blue-300 w-[206.5px] md:w-full bg-blue-100 dark:bg-blue-800   h-10 text-gray-100 rounded-full mb-2"
           >
-            {" "}
-            <span className="">
-              <FaGoogle size={25} />{" "}
-            </span>{" "}
-            <span>Login With Google </span>
+            <span>
+              <FaGoogle className="text-gray-100" size={20} />
+            </span>
+            <span>Login With Google</span>
           </button>
+
           <button
             type="submit"
-            className=" cursor-pointer bg-blue-500 text-white font-bold border-2 border-black w-[206.5px] md:w-full  h-10 rounded-full "
+            className="cursor-pointer bg-blue-500 text-gray-100 font-bold hover:border-2 border-blue-600 dark:border-blue-400 w-[206.5px] md:w-full h-10 rounded-full hover:scale-102 transition-transform"
           >
             Login
           </button>
-          <h1 className="text-center text-black">
-            {" "}
+
+          <h1 className="text-center text-black dark:text-white mt-3 ">
             Don't have an account?
             <Link
               to={"/register"}
-              className="text-blue-600 cursor-pointer font-semibold"
+              className="text-black  hover:underline  ml-1 font-semibold"
             >
-              {" "}
               Register Now
             </Link>
           </h1>

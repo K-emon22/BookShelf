@@ -18,13 +18,15 @@ const Register = () => {
     const photo = e.target.photo.value;
     const password = e.target.password.value;
 
-
     if (password.length < 6) {
       toast.error("Password must be at least 6 characters long.", {
         autoClose: 1000,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
+        style: {
+          background: "#fecaca",
+        },
       });
 
       return;
@@ -35,6 +37,9 @@ const Register = () => {
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
+        style: {
+          background: "#fecaca",
+        },
       });
 
       return;
@@ -45,6 +50,9 @@ const Register = () => {
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
+        style: {
+          background: "#fecaca",
+        },
       });
 
       return;
@@ -72,6 +80,9 @@ const Register = () => {
             closeOnClick: true,
             pauseOnHover: true,
             draggable: true,
+            style: {
+              background: "#fecaca",
+            },
           });
         } else if (err.code === "auth/invalid-email") {
           toast.error("Invalid email address.", {
@@ -79,6 +90,9 @@ const Register = () => {
             closeOnClick: true,
             pauseOnHover: true,
             draggable: true,
+            style: {
+              background: "#fecaca",
+            },
           });
         } else {
           toast.error(err.message || "Registration failed", {
@@ -86,6 +100,9 @@ const Register = () => {
             closeOnClick: true,
             pauseOnHover: true,
             draggable: true,
+            style: {
+              background: "#fecaca",
+            },
           });
         }
       });
@@ -116,7 +133,7 @@ const Register = () => {
       }}
     >
       <Fade direction="down" cascade duration={800}>
-        <h1 className="text-3xl sm:text-5xl font-bold text-center">
+        <h1 className="text-3xl sm:text-5xl font-bold text-center text-blue-600">
           Ready to{" "}
           <span style={{color: "blue", fontWeight: "bold"}}>
             <Typewriter
@@ -173,13 +190,12 @@ const Register = () => {
           <button
             onClick={googleLogins}
             type="button"
-            className="  flex flex-row items-center justify-center gap-2 hover:bg-blue-500 hover:text-white cursor-pointer mt-8 font-bold border-2 w-[206.5px] md:w-full bg-[#F5F5F5]   h-10 my-auto rounded-full mb-2"
+            className="flex flex-row justify-center items-center gap-2 hover:bg-blue-500 hover:text-white cursor-pointer mt-8 font-bold border-2 border-blue-300 w-[206.5px] md:w-full bg-blue-100 dark:bg-blue-800   h-10 text-gray-100 rounded-full mb-2"
           >
-            {" "}
-            <span className="">
-              <FaGoogle size={25} />{" "}
-            </span>{" "}
-            <span>Login With Google </span>
+            <span>
+              <FaGoogle className="text-gray-100" size={20} />
+            </span>
+            <span>Login With Google</span>
           </button>
           <button
             type="submit"
@@ -187,12 +203,12 @@ const Register = () => {
           >
             Register
           </button>
-          <h1 className="text-center text-black">
+          <h1 className="text-center text-gray-800 font-semibold">
             {" "}
             Already have an account?
             <Link
               to={"/login"}
-              className="text-blue-600 cursor-pointer font-semibold"
+              className="text-blue-600 cursor-pointer font-semibold hover:underline"
             >
               {" "}
               Login Now

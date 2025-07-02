@@ -99,7 +99,7 @@ const ReviewSection = ({book}) => {
                         </p>
                       </div>
                     </div>
-                    <p className="text-gray-800 text-justify">{item.review}</p>
+                    <p className="text-gray-500 text-justify">{item.review}</p>
 
                     {item.user_name === user?.displayName && (
                       <div className="mt-4 flex flex-row gap-10">

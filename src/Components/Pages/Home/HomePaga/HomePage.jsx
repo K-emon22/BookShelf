@@ -37,7 +37,7 @@ const HomePage = () => {
       <FeatureCAt></FeatureCAt>
 
       <NewsSection></NewsSection>
-      <QnaSection></QnaSection>
+      {/* <QnaSection></QnaSection> */}
       <Offer></Offer>
       <BlogSection></BlogSection>
       <Newsletter></Newsletter>

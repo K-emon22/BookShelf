@@ -3,19 +3,20 @@ import {Link} from "react-router";
 
 const Footer = () => {
   return (
-    <div className="bg-black text-white p-10 mt-10">
+    <div className="bg-black text-gray-100 p-10 mt-10">
       <div className="flex flex-col sm:flex-row justify-between gap-4">
-        <div className=" flex  gap-2 sm:w-[225px] justify-center items-center flex-col sm:flex-row">
+        <div className="flex gap-2 sm:w-[225px] justify-center items-center flex-col sm:flex-row">
           <img
-            className="w-15 sm:w-20 rounded-lg  "
-            src={
-              "https://i.ibb.co/Q7NsLYWn/572504ff-152a-44e5-9fb4-e4d0966bab63.jpg"
-            }
-            alt=""
+            className="w-16 sm:w-20 rounded-lg"
+            src="https://i.ibb.co/Q7NsLYWn/572504ff-152a-44e5-9fb4-e4d0966bab63.jpg"
+            alt="Bookshelf Logo"
           />
-          <h1 className="font-semibold text-xl my-auto ">Bookshelf</h1>
+          <h1 className="font-semibold text-xl my-auto text-gray-100">
+            Bookshelf
+          </h1>
         </div>
 
+        {/* Social Links */}
         <div className="flex flex-row items-center justify-center gap-5 my-auto ">
           <a href="https://x.com/programminghero?lang=en">
             <svg
@@ -52,25 +53,23 @@ const Footer = () => {
           </a>
         </div>
 
-        <div className="flex flex-col justify-center items-center   ">
+        <div className="flex flex-col justify-center items-center text-center sm:text-right">
           <h1>
-            {" "}
-            email: <span className="">emonSheikh@gmail.com</span>
+            Email: <span className="text-gray-100">emonSheikh@gmail.com</span>
           </h1>
           <h1>
-            {" "}
-            Phone Num: <span className="">01915367730</span>
+            Phone: <span className="text-gray-100">01915367730</span>
           </h1>
         </div>
-
       </div>
+
       <Link
-        className="flex justify-center items-center mt-4"
-        to={"/terms&condition"}
+        className="flex justify-center items-center mt-6 text-gray-100 hover:underline"
+        to="/terms&condition"
       >
         Terms & Conditions
       </Link>
-      <p className="text-sm  mt-4 text-center">
+      <p className="text-sm mt-4 text-center text-gray-100">
         &copy; {new Date().getFullYear()} Bookshelf. All rights reserved.
       </p>
     </div>

@@ -1,6 +1,6 @@
 .btnn {
   color: black;
-  background-color: #3B82F6;
+  background-color: #3b82f6;
   padding: 8px 15px;
   border-radius: 0.5rem;
   font-weight: 600;
@@ -9,15 +9,13 @@
 }
 
 .btnn:hover {
-  background-color: #2563EB;
+  background-color: #2563eb;
   color: white;
 }
 
-
-
 .btnnn {
   color: white;
-  background-color: #3B82F6;
+  background-color: #3b82f6;
   padding: 10px 15px;
   border-radius: 0.5rem;
   font-weight: 600;
@@ -26,13 +24,13 @@
 }
 
 .btnnn:hover {
-  background-color: #2563EB;
+  background-color: #2563eb;
   color: white;
 }
 
 .btnnnn {
   color: white;
-  background-color: #3B82F6;
+  background-color: #3b82f6;
   padding: 8px 15px;
   border-radius: 0.5rem;
   font-weight: 600;
@@ -41,17 +39,9 @@
 }
 
 .btnnnn:hover {
-  background-color: #2563EB;
+  background-color: #2563eb;
   color: white;
 }
-
-
-
-
-
-
-
-
 
 .btnnnnn {
   color: white;
@@ -66,4 +56,16 @@
 .btnnnnn:hover {
   background-color: #ff0000;
   color: white;
+}
+
+.text-black {
+  color: var(--bc) !important;
+}
+
+.bg-white {
+  background-color: var(--b1) !important;
+}
+
+.text-white {
+  color: var(--bc) !important;
 }

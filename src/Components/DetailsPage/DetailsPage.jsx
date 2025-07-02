@@ -112,19 +112,19 @@ const DetailsPage = () => {
                 </motion.span>
               </h1>
             </div>
-            <p className="text-gray-700 mb-1">
+            <p className="text-gray-500 mb-1">
               <strong>By:</strong> {book.book_author}
             </p>
-            <p className="text-gray-700 mb-1">
+            <p className="text-gray-500 mb-1">
               <strong>Category:</strong> {book.book_category}
             </p>
-            <p className="text-gray-700 mb-2">
+            <p className="text-gray-500 mb-2">
               <strong>Total Pages:</strong> {book.total_page}
             </p>
 
             {book?.user?.email === user?.email ? (
               <div className="flex flex-row gap-2 mb-2">
-                <strong className="my-auto text-gray-700">
+                <strong className="my-auto text-gray-500">
                   Reading Status:{" "}
                 </strong>
 
@@ -154,17 +154,17 @@ const DetailsPage = () => {
               </div>
             ) : (
               <div className="flex flex-row gap-2 mb-2">
-                <strong className="my-auto text-gray-700">
+                <strong className="my-auto text-gray-500">
                   Reading Status:{" "}
                 </strong>
                 <span>{book.reading_status}</span>
               </div>
             )}
 
-            <p className="text-gray-700 mb-4 text-justify">
+            <p className="text-white mb-4 text-justify">
               <strong>Overview:</strong> {book.book_overview}
             </p>
-            <div className="text-sm text-gray-600 mt-2 mb-4">
+            <div className="text-sm text-white mt-2 mb-4">
               <p>
                 <strong>Submitted by:</strong> {book.user?.name} (
                 {book.user?.email})

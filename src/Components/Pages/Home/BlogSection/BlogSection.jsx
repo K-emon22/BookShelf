@@ -25,13 +25,13 @@ const blogData = [
 
 const BlogSection = () => {
   return (
-    <section className="bg-white dark:bg-gray-900 py-12 rounded-lg  my-20 sm:px-6 mx-[2%] lg:mx-[5%]">
-      <div className="max-w-6xl mx-auto">
+    <section className="bg-white py-12 rounded-lg  my-20  mx-[2%] lg:mx-[5%] shadow-black/20 shadow-lg p-2">
+      <div className=" "> 
         <motion.h2
           initial={{opacity: 0, y: -20}}
           whileInView={{opacity: 1, y: 0}}
           transition={{duration: 0.5}}
-          className="text-3xl font-bold text-center text-gray-900 dark:text-white mb-10"
+          className="text-3xl font-bold text-center text-white mb-10"
         >
           📚 Blog & Resources
         </motion.h2>
@@ -43,15 +43,15 @@ const BlogSection = () => {
               initial={{opacity: 0, y: 40}}
               whileInView={{opacity: 1, y: 0}}
               transition={{duration: 0.5, delay: index * 0.2}}
-              className="bg-gray-50 dark:bg-gray-800 shadow-md p-6 rounded-xl hover:shadow-xl transition"
+              className=" bg-white shadow-md p-6 rounded-xl hover:shadow-xl transition"
             >
               <div className="flex items-center gap-4 mb-4">
                 {item.icon}
-                <h3 className="text-xl font-semibold text-gray-800 dark:text-white">
+                <h3 className="text-xl font-semibold text-white">
                   {item.title}
                 </h3>
               </div>
-              <p className="text-gray-600 dark:text-gray-300">{item.content}</p>
+              <p className=" text-white">{item.content}</p>
             </motion.div>
           ))}
         </div>

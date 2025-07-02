@@ -72,7 +72,7 @@ export const Slider = () => {
   ];
 
   return (
-    <div className="w-full mx-auto relative mb-10">
+    <div className="w-full mx-auto relative mb-20">
       <div className="overflow-hidden" ref={emblaRef}>
         <div className="flex">
           {slides.map((slide, index) => (
@@ -82,7 +82,7 @@ export const Slider = () => {
                 style={{backgroundImage: `url(${slide.image})`}}
               >
                 <div className="bg-black/45 shadow-2xl p-2 sm:p-6 rounded-lg text-center w-3/4 space-y-2 py-10 lg:py-20 sm:space-y-4">
-                  <h1 className="text-white sm:text-xl md:text-2xl font-semibold sm:font-bold">
+                  <h1 className=" text-gray-100 sm:text-xl md:text-2xl font-semibold sm:font-bold">
                     {slide.text}
                   </h1>
                   {user ? (

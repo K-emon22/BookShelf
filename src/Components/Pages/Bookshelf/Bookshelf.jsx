@@ -14,6 +14,7 @@ const Bookshelf = () => {
   const [filteredBooks, setFilteredBooks] = useState([]);
   const [readingStatus, setReadingStatus] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
+  const [sortType, setSortType] = useState("");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -32,6 +33,33 @@ const Bookshelf = () => {
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
   };
+  useEffect(() => {
+    const lower = searchTerm.toLowerCase();
+
+    let filtered = allBooks.filter((book) => {
+      const matchesSearch =
+        !searchTerm ||
+        book?.book_title?.toLowerCase().includes(lower) ||
+        book?.book_author?.toLowerCase().includes(lower);
+
+      const matchesReadingStatus =
+        !readingStatus || book?.reading_status === readingStatus;
+
+      return matchesSearch && matchesReadingStatus;
+    });
+
+    if (sortType === "author-az") {
+      filtered.sort((a, b) => a.book_author.localeCompare(b.book_author));
+    } else if (sortType === "author-za") {
+      filtered.sort((a, b) => b.book_author.localeCompare(a.book_author));
+    } else if (sortType === "upvotes-high") {
+      filtered.sort((a, b) => b.upvote - a.upvote);
+    } else if (sortType === "upvotes-low") {
+      filtered.sort((a, b) => a.upvote - b.upvote);
+    }
+
+    setFilteredBooks(filtered);
+  }, [searchTerm, readingStatus, sortType, allBooks]);
 
   useEffect(() => {
     const lower = searchTerm.toLowerCase();
@@ -69,8 +97,8 @@ const Bookshelf = () => {
             All Books
           </h1>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 items-center justify-between gap-5 p-4 bg-white rounded-xl shadow my-4">
-            <div className="flex flex-row w-full">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 items-center justify-between gap-5 p-4 bg-white rounded-xl shadow my-4">
+            <div className="flex flex-row w-full xl:col-span-2">
               <input
                 type="text"
                 placeholder="Search by book title or author..."
@@ -84,8 +112,34 @@ const Bookshelf = () => {
                 </span>
               </div>
             </div>
+
+            <div className="grid grid-cols-2 md:hidden gap-5">
+              <select
+                className="w-full h-[44px]  px-4 py-2 border-2 border-blue-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                value={readingStatus}
+                onChange={(e) => setReadingStatus(e.target.value)}
+              >
+                <option value="">All Books</option>
+                <option value="Read">Read</option>
+                <option value="Reading">Reading</option>
+                <option value="Want-to-Read">Want-to-Read</option>
+              </select>
+
+              <select
+                className="w-full h-[44px] px-4 py-2 border-2 border-blue-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                value={sortType}
+                onChange={(e) => setSortType(e.target.value)}
+              >
+                <option value="">Sort By</option>
+                <option value="author-az">Author A → Z</option>
+                <option value="author-za">Author Z → A</option>
+                <option value="upvotes-high">Upvotes High → Low</option>
+                <option value="upvotes-low">Upvotes Low → High</option>
+              </select>
+            </div>
+
             <select
-              className="w-full h-[44px]  px-4 py-2 border-2 border-blue-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className=" hidden md:block w-full h-[44px]  px-4 py-2 border-2 border-blue-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
               value={readingStatus}
               onChange={(e) => setReadingStatus(e.target.value)}
             >
@@ -93,6 +147,18 @@ const Bookshelf = () => {
               <option value="Read">Read</option>
               <option value="Reading">Reading</option>
               <option value="Want-to-Read">Want-to-Read</option>
+            </select>
+
+            <select
+              className=" hidden md:block w-full h-[44px] px-4 py-2 border-2 border-blue-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+              value={sortType}
+              onChange={(e) => setSortType(e.target.value)}
+            >
+              <option value="">Sort By</option>
+              <option value="author-az">Author A → Z</option>
+              <option value="author-za">Author Z → A</option>
+              <option value="upvotes-high">Upvotes High → Low</option>
+              <option value="upvotes-low">Upvotes Low → High</option>
             </select>
           </div>
         </div>
@@ -118,7 +184,7 @@ const Bookshelf = () => {
           </div>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 md:grid-cols-3 gap-5  ">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 md:grid-cols-3 gap-5  ">
           {filteredBooks.map((sort) => (
             <div key={sort._id}>
               <motion.div

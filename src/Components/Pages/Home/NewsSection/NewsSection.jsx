@@ -4,7 +4,7 @@ import {Fade} from "react-awesome-reveal";
 const NewsSection = () => {
   return (
     <div className="mx-[2%] lg:mx-[5%]">
-      <section className="bg-slate-50 py-16 rounded-lg shadow-sm shadow-black/30">
+      <section className="bg-white py-16 rounded-lg shadow-black/20 shadow-lg">
         <div className="container mx-auto px-6">
           <div className="text-center mb-12">
             <Fade direction="up" cascade duration={800} triggerOnce={false}>
@@ -14,7 +14,7 @@ const NewsSection = () => {
                 </h1>
               </div>
             </Fade>
-            <p className="text-gray-600 mt-2">
+            <p className="text-black mt-2">
               Updates from the literary world, right here.
             </p>
           </div>
@@ -32,7 +32,7 @@ const NewsSection = () => {
                   <span className="text-xs font-semibold bg-blue-400 text-white py-1 px-3 rounded-full">
                     Local Events
                   </span>
-                  <h3 className="text-2xl font-bold text-white mt-4">
+                  <h3 className="text-2xl font-bold text-gray-100 mt-4">
                     Dhaka Lit Fest 2025 Dates Announced, Promises a Grand Return
                   </h3>
                   <p className="text-indigo-100 mt-2">
@@ -46,24 +46,24 @@ const NewsSection = () => {
 
             <div className="space-y-8">
               <div className="block group bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300">
-                <h4 className="font-bold text-lg text-gray-800 group-hover:text-blue-400 transition-colors">
+                <h4 className="font-bold text-lg text-black ">
                   Unpublished Works of Humayun Ahmed to be Released in New
                   Collection
                 </h4>
-                <p className="text-sm text-gray-500 mt-2">June 9, 2025</p>
-                <p className="text-gray-600 text-sm mt-3">
+                <p className="text-sm text-black mt-2">June 9, 2025</p>
+                <p className="text-black text-sm mt-3">
                   A new collection titled 'Oprokashito' will feature short
                   stories and poems discovered recently...
                 </p>
               </div>
 
               <div className="block group bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300">
-                <h4 className="font-bold text-lg text-gray-800 group-hover:text-blue-400 transition-colors">
+                <h4 className="font-bold text-lg text-black ">
                   2025 Booker Prize Longlist Unveiled, Featuring Diverse New
                   Voices
                 </h4>
-                <p className="text-sm text-gray-500 mt-2">June 5, 2025</p>
-                <p className="text-gray-600 text-sm mt-3">
+                <p className="text-sm text-black mt-2">June 5, 2025</p>
+                <p className="text-black text-sm mt-3">
                   The much-anticipated list for one of literature's most
                   prestigious awards is finally here...
                 </p>
