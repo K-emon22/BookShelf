@@ -36,7 +36,7 @@ const SortedBook = () => {
         </div>
       </Fade>
       {loding2 ? (
-        <div className="flex justify-center items-center h-[50vh]">
+        <div className="flex   justify-center items-center h-[50vh]">
           <div className="w-12 h-12 border-5 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
         </div>
       ) : (
