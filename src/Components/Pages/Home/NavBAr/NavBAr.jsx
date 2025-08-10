@@ -10,7 +10,7 @@ import Swal from "sweetalert2";
 
 const NavBAr = () => {
   const [currentTheme, setCurrentTheme] = useState("light");
-
+     
   useEffect(() => {
     const saved = localStorage.getItem("theme") || "light";
     document.documentElement.setAttribute("data-theme", saved);

@@ -41,7 +41,7 @@ const MyBooks = () => {
 
         setAddedBook(res.data.myBook);
       });
-  }, [user, accessToken, email]);
+  }, []);
 
   const handleUpvote = (id) => {
     if (!user) {

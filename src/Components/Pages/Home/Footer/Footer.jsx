@@ -16,7 +16,7 @@ const Footer = () => {
           </h1>
         </div>
 
-        {/* Social Links */}
+
         <div className="flex flex-row items-center justify-center gap-5 my-auto ">
           <a href="https://x.com/programminghero?lang=en">
             <svg
