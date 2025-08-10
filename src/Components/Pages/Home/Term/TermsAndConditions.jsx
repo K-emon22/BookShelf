@@ -98,5 +98,5 @@ const TermsAndConditions = () => {
     </div>
   );
 };
-
-export default TermsAndConditions;
+   
+export default  TermsAndConditions;
