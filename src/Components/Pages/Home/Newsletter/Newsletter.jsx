@@ -29,5 +29,5 @@ const Newsletter = () => {
     </section>
   );
 };
-
+        
 export default Newsletter;
