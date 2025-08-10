@@ -32,7 +32,7 @@ const Offer = () => {
     >
       📣 Special Offers & Promotions
     </motion.h2>
-
+    
     <div className="grid md:grid-cols-3 gap-6">
       {offers.map((offer, idx) => (
         <motion.div
