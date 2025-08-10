@@ -19,7 +19,7 @@ const HomePage = () => {
     setTimeout(() => {
       setLoading1(false);
     }, 500);
-  }, []);
+  }, []);     
 
   if (loding1) {
     return <Loder></Loder>;
